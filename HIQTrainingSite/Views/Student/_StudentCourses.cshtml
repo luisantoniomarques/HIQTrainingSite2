@@ -1,0 +1,56 @@
+﻿<div>
+    <div class="modal fade"  role="dialog" id="courseListModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="block-group" style="background-color:#303240">
+                    <div style="padding: 25px;">
+                        <h4 id="studentNameHeader" style="color:#14BFF3">@HIQResources.titleCourseList : </h4>
+                    </div>
+                    <div class="modalTable">
+                        <div class="block-group search-box">
+                            <label id="searchLabel">
+                                <input id="searchField" class="filter text-box single-line" type="text" placeholder="procurar por nome" style="width:200px;" />
+                                <button id="exportBtn" class="btn btn-default btn-sm">Export Formacoes</button>
+                              
+                            </label>
+                        </div>
+
+                        <table class="table" id="tableResult">
+                            <tr>
+                                <th>
+                                    @HIQResources.labelCourseName
+                                </th>
+                                <th>
+                                    @HIQResources.labelFormativeEntityName
+                                </th>
+                                <th>
+                                    @HIQResources.labelCourseLevel
+                                </th>
+                                <th>
+                                    @HIQResources.labelTeacherName
+                                </th>
+                                <th>
+                                    @HIQResources.labelStartDate
+                                </th>
+                                <th>
+                                    @HIQResources.labelCourseStatus
+                                </th>
+                                <th>
+                                    @HIQResources.submenuAttendance
+                                </th>
+                            </tr>
+
+                            <tbody id="coursesResult"></tbody>
+
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">@HIQResources.buttonBack</button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        </div>
+</div>

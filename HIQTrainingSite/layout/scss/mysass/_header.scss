@@ -1,0 +1,109 @@
+header {
+    padding: 20px 0;
+    @include box-shadow(0px, 2px, 4px, -2px, #000);
+    background-color: $hiq-main-blue2;
+}
+
+.togglemenu {
+    color: $hiq-yellow;
+    display: none;
+}
+
+.menu-right {
+    @extend .pull-right;
+}
+
+.topnav {
+    overflow: hidden;
+    width: 90%;
+    @extend .center-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.brand a {
+    float: left;
+    color: $hiq-white !important;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: $hiq-light-grey;
+    text-align: center;
+    text-align: center;
+    padding: 14px 12px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.topnav a:hover {
+    color: $hiq-yellow;
+}
+
+.topnav .icon {
+    display: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: $hiq-main-blue;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    margin: 45px -17px;
+    @include roundedCorners(5);
+}
+
+.dropdown-content :before {
+    content: "";
+    position: absolute;
+    right: 67px;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent $hiq-main-blue transparent;
+    z-index: 1;
+}
+
+.dropdown-content :after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: -22px;
+    width: 0;
+    height: 0;
+    border-width: 0 17px 17px 17px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: $hiq-forma;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+
+.show {
+    display: block;
+}
+
+@media screen and (max-width: 600px) {
+    .menu-right {
+        display: none;
+    }
+    .togglemenu {
+        display: block;
+    }
+}

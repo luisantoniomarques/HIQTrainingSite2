@@ -1,0 +1,180 @@
+﻿@model HIQTrainingSite.ViewModel.InscriptionListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleInscriptionList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle">@HIQResources.titleInscriptionList</div>
+        @if(Model.IsCourseFinished)
+        {
+            @Html.ActionLink(HIQResources.buttonAdd, "Create", new { CourseId = Model.CourseId }, new { @class = "btn btn-lg btn-default md-trigger disabled" })
+        }
+        else
+        {
+            @Html.ActionLink(HIQResources.buttonAdd, "Create", new { CourseId = Model.CourseId }, new { @class = "btn btn-lg btn-default md-trigger" })
+        }
+        
+    </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => Model.CourseId)
+            @Html.HiddenFor(x => Model.CourseName)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="block-group">
+                <div id="searchTeacherResults">
+                    <table class="table" id="table">
+                        <tr>
+                            <th>
+                                @HIQResources.labelStudentName
+                            </th>
+                            <th>
+                                @HIQResources.labelCompanyName
+                            </th>
+                            <th>
+                                @HIQResources.labelInscriptionType
+                            </th>
+                            <th>
+                                @HIQResources.labelInscriptionStatus
+                            </th>
+                            <th>
+                                @HIQResources.labelObservations
+                            </th>
+                            <th>
+                                @HIQResources.titleOperations
+                            </th>
+                        </tr>
+
+                        @for (int i = 0; i < Model.InscriptionList.Count(); i++)
+                {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(x => Model.InscriptionList[i].Id)
+                                    @Html.HiddenFor(x => Model.InscriptionList[i].StudentName)
+                                    @Html.DisplayFor(x => Model.InscriptionList[i].StudentName)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(x => Model.InscriptionList[i].CompanyName)
+                                    @Html.DisplayFor(x => Model.InscriptionList[i].CompanyName)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(x => Model.InscriptionList[i].TypeName)
+                                    @Html.DisplayFor(x => Model.InscriptionList[i].TypeName)
+                                </td>
+                                <td>
+                                    @if (Model.IsCourseFinished)
+                                    {
+                                        @Html.DisplayFor(x => Model.InscriptionList[i].StatusDescription)
+                                    }
+                                    else
+                                    {
+                                    <div class="select-dropdown">
+                                       @Html.DropDownListFor(x => Model.InscriptionList[i].Status, Model.InscriptionList[i].StateItems, new { @class = "filter" })
+                                    </div>
+                                    }       
+                                </td>
+                                <td>
+                                    @if (Model.IsCourseFinished)
+                                    {
+                                        @Html.DisplayFor(x => Model.InscriptionList[i].Observation)
+                                    }
+                                    else
+                                    {
+                                        @Html.EditorFor(x => Model.InscriptionList[i].Observation, new { htmlAttributes = new { @class = "filter", @autocomplete = "off" } })
+                                    }                                    
+                                    @Html.ValidationMessageFor(x => Model.InscriptionList[i].Observation, "", new { @class = "text-danger" })
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    @if (Model.IsCourseFinished)
+                                    {
+                                        @**@<button type="button" class="btn btn-default btn-sm btn-remove disabled" data-toggle="modal" data-target="#myModal" data-hiq-id="@Model.InscriptionList[i].Id" data-hiq-course-id="@Model.CourseId" name="deleteArgs">
+                                        @*HAMMER TIME!*@
+                                        @HIQResources.buttonDelete
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-hiq-id="@Model.InscriptionList[i].Id" data-hiq-course-id="@Model.CourseId" name="deleteArgs">
+                                            @*HAMMER TIME!*@
+                                            @HIQResources.buttonDelete
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+                    <div>
+                        @if (Model.IsCourseFinished)
+                        {
+                            <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation disabled" id="btnSave" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" id="btnSave" />
+                        }
+                        @Html.ActionLink(HIQResources.buttonBack, "Index", "Course", null, new { @class = "btn btn-default btn-sm btn-edit" })
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+</div>
+            @Html.Partial("_AlertMessage", Model.Alert)
+
+
+            @Html.Partial("_ModalDelete")
+
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/jqueryval")
+                @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js");
+
+                <script>
+                    $(function () {
+                        /*$('#myModal').on('show.bs.modal', function (event) {
+                            var button = $(event.relatedTarget); // Button that triggered the modal
+                            var id = button.attr('data-hiq-id'); // Extract info from data-* attributes
+                            var courseId = button.attr('data-hiq-course-id'); // Extract info from data-* attributes
+                            $('#deleteForm').attr("action", "/inscription/delete/" + courseId + "?id=" + id);
+                        })*/ // originally not working for some abnormal reason, since this code is replicated along the project.
+
+                        // hammer code to fix issue above, declare a id on the _ModalDelete -> submit button.
+
+                        var id = '';
+                        var courseId = '';
+                        $('[name="deleteArgs"]').on("click", function (e) {
+                            var button = $(e.target); // Button that triggered the modal
+                            id = button.attr('data-hiq-id'); // Extract info from data-* attributes
+                            courseId = button.attr('data-hiq-course-id'); // Extract info from data-* attributes
+                        });
+
+                        $("#ModalDeleteButton").on("click", function (e) {
+                            $('#deleteForm').attr("action", "/inscription/delete/" + "?id=" + id);
+                        });
+
+
+
+                        $("#btnSave").on("click", function (e) {
+                            var courseId = $('#CourseId').val();
+                            this.form.action = "/inscription/index/" + courseId;
+                            this.form.method = "post";
+                            this.form.submit();
+                        });
+                    });
+
+                </script>
+            }

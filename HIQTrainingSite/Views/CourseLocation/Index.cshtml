@@ -1,0 +1,87 @@
+﻿@model HIQTrainingSite.ViewModel.CourseLocationListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCourseLocationList;
+    {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle">@HIQResources.titleCourseLocationList</div>
+
+
+        @Html.ActionLink(HIQResources.buttonAdd, "Create", null, new { @class = "btn btn-lg btn-default md-trigger" })
+    </div>
+    @*<button class="btn btn-lg btn-default md-trigger " data-modal="modal-2">Adicionar formando Interno</button>*@
+    <table class="table">
+        <tr>
+            <th>
+                @HIQResources.labelLocationName
+            </th>
+            <th>
+                @HIQResources.labelDisplayColor
+            </th>
+            <th>
+                @HIQResources.titleOperations
+            </th>
+        </tr>
+
+        @foreach (var item in Model.CourseLocationList)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(itemModel => item.Id)
+                    @Html.DisplayFor(itemModel => item.Name)
+                </td>
+                <td>
+                    <span class="label" style="background-color:#@item.DisplayColor;padding-left:15%;margin-left:7%;">&nbsp;</span>
+                    @Html.HiddenFor(itemModel => item.DisplayColor)
+                </td>
+                <td>
+                    @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit" })
+                    @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-id="@item.Id">
+                        @HIQResources.buttonDelete
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    <div class="pagedList text-center">
+        @Html.PagedListPager(Model.CourseLocationList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+
+    @Html.Partial("_AlertMessage", Model.Alert)
+
+    @Html.Partial("_ModalDelete")
+</div>
+
+    @section Scripts {
+
+        <script src="~/Scripts/jscolor.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#myModal').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget) // Button that triggered the modal
+                    var id = button.attr('data-id') // Extract info from data-* attributes
+                    $('#deleteForm').attr("action", "/CourseLocation/Delete/" + id);
+                })
+            });
+        </script>
+
+        <script>
+            $(".label label-default").css('background-color', "#" + $("#item_DisplayColor").val());
+        </script>
+    }
+
+

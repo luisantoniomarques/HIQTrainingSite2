@@ -1,0 +1,384 @@
+﻿@model HIQTrainingSite.ViewModel.HomeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesHome.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/themes/base/eventcalendar.css")" rel="stylesheet" />
+
+    }
+}
+
+<script src="~/Scripts/HIQTrainingScripts/NotesCalendar/Portal.Notes.js"></script>
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+    <div class="mainblock">
+        <div class="block-group">
+            <div class="form-group">
+                <div class="container container-table">
+                    <div class="row vertical-center-row">
+                        <div class="text-center md-content">
+
+                        </div>
+                    </div>
+                    <div class="row ">
+                       <div style="padding:10px; margin-left: 50%; float:left; margin-top:10px;">
+                            <label id="errorDate" class="text-danger"></label>
+                       </div>
+                            <div class="mtop20 pull-right">
+                                <div class="block-group search-boxCalendar">
+                                    <div class="block b5">
+                                        @*Nota: As alterações feitas numa dada semana do calendário, só ficam registadas após clicar no botão "Gravar"*@
+                                        <input type="text" id="dpDateStart" class="filter" name="dpDateStart" placeholder="@HIQResources.labelStartDate" />
+                                        @*@Html.EditorFor(model => model.Search.Nome, new { htmlAttributes = new { @class = "filter", @Name = "name", @placeholder = "Procurar por nome" } })*@
+                                    </div>
+                                    <div class="btn-group">
+                                        <div class="pull-right">
+                                            <input type="button" id="btnSearchEvents" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+                                            <input type="reset" id="btnSearchClean" value=@HIQResources.buttonClean class="btn btn-default btn-sm" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row boxCalendar2">
+                        <div style="float:left; width: 160px;">
+                            <div id="nav"></div>
+                        </div>
+                        <div style="margin-left: 160px; margin-bottom:20px;">
+                            <div id="dp"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="pull-right">
+                            @*<input type="hidden" name="idcurrentEvent" id="idcurrentEvent" />*@
+                            <input type="hidden" name="startDate" id="startDate" />
+                            <input type="hidden" name="endDate" id="endDate" />
+                            <input type="hidden" name="noteList" id="noteList" />
+                            <input type="hidden" name="token" id="token" />
+                            <input type="hidden" name="eventsRemoved" id="eventsRemoved" />
+                            <input type="submit" id="btnSaveChanges" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" />
+                            @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-default btn-sm btn-edit", Href = Request.UrlReferrer })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-group">
+        <!-- Modal Calendar -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="actionDelete" style="display:none">
+                            <h4 class="modal-title" id="myModalLabel">@HIQResources.titleDeleteNote</h4>
+                        </div>
+                        <div class="actionAdd" style="display:none">
+                            <h4 class="modal-title" id="myModalLabel">@HIQResources.titleAddEditNote</h4>
+                        </div>
+                        <div class="MessageError" style="display:none">
+                            <h4 class="modal-title" id="myModalLabel">@HIQResources.titleError</h4>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="actionDelete" style="display:none">
+                            @HIQResources.genericQuestionAreYouSureDelete
+                        </div>
+                        <div class="actionAdd" style="display:none">
+                            @HIQResources.questionEventAdd
+                        </div>
+                        <div class="actionAdd" style="display:none">
+                            <div class="form-control inputForm">
+                                <input class="inputEventText" type="text" name="eventText" id="eventText" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="MessageError" style="display:none">
+                            @HIQResources.errorMessageDateEmpty
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        @*@Html.AntiForgeryToken()*@
+
+                        <button type="button" class="btn btn-default btn-sm btn-formation" id="ModalConfirmButton">@HIQResources.buttonConfirm</button> @*HAMMER TIME!*@
+                        <button type="button" class="btn btn-default btn-sm btn-default" id="ModalReturnButton">@HIQResources.buttonBack</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+        Portal.model = @(Html.Raw(Json.Encode(Model)));
+        Portal.Notes.eventList = Portal.model.Notes.NoteList;
+        Portal.Notes.currentCulture =  @Html.Raw(Json.Encode(ViewBag.culture));
+        Portal.Notes.idcurrentEvent =  @Html.Raw(Json.Encode(ViewBag.IdLastEvent));
+        Portal.Notes.userCreated = @Html.Raw(Json.Encode(ViewBag.userCreated));
+        Portal.Notes.visibleDateStart = @Html.Raw(Json.Encode(ViewBag.visibleDateStart));
+        Portal.Notes.barColor = @Html.Raw(Json.Encode(ViewBag.barColor));
+
+        Portal.Notes.init();
+
+
+
+
+
+
+    @*$(document).ready(function () {
+        var model = @(Html.Raw(Json.Encode(Model)));
+        var eventList = model.Notes.NoteList;
+
+        var idcurrentEvent =   @Html.Raw(Json.Encode(ViewBag.IdLastEvent));
+        var currentCulture =  @Html.Raw(Json.Encode(ViewBag.culture));
+        var eventsRemoved = new DayPilot.Calendar();
+        var eventAction = null;
+        var eventArgs = null;
+
+        var dp = new DayPilot.Calendar("dp");
+        dp.viewType = "Week";
+        dp.width = "100%"
+        dp.businessBeginsHour = 8;
+        dp.locale = currentCulture;
+        dp.theme = "calendar_default";
+        dp.businessEndsHour = 22;
+
+        dp.height = "";
+        dp.heightSpec = 'BusinessHoursNoScroll';
+
+        dp.timeFormat = "Clock24Hours";
+        dp.eventDeleteHandling = "Enabled";
+        dp.weekStarts = 1;
+        dp.headerDateFormat = "d dddd";
+        dp.timeHeaderCellDuration = 30;
+
+        dp.onBeforeTimeHeaderRender = function (args) {
+            var hour = args.header.hours + ":" + args.header.minutes;
+            var position = hour.indexOf(":", hour.indexOf(":") + 1);
+            args.header.html = hour.substr(0, position);
+        };
+
+        dp.onBeforeEventRender = function (args) {
+            if (args.e.UserCreated !==  @Html.Raw(Json.Encode(ViewBag.userCreated))) {
+                args.data.deleteDisabled = true;
+                args.e.moveDisabled = true;
+                args.e.resizeDisabled = true;
+            }
+        };
+
+
+        dp.onEventDelete = function (args) {
+            eventArgs = args;
+            eventAction = "delete";
+            $(".actionDelete").css({ "display": "block" });
+            $(".actionAdd").css({ "display": "none" });
+            $("#myModal").modal();
+        };
+
+        dp.onEventMoved = function (args) {
+             eventArgs = args;
+             if (eventArgs.e.data.UserCreated ===  @Html.Raw(Json.Encode(ViewBag.userCreated))) {
+                onEventPositionChanged();
+            }
+        };
+
+
+        dp.onEventResized = function (args) {
+            eventArgs = args;
+            if (eventArgs.e.data.UserCreated ===  @Html.Raw(Json.Encode(ViewBag.userCreated))) {
+                onEventPositionChanged();
+            }
+        };
+
+        function onEventPositionChanged() {
+            var e = dp.events.find(eventArgs.e.id());
+            e.data.start = eventArgs.newStart.toString();
+            e.data.end = eventArgs.newEnd.toString();
+            e.data.EventStart = eventArgs.newStart;
+            e.data.EventEnd = eventArgs.newEnd;
+            e.data.isUpdated = true;
+            dp.events.update(e);
+            eventList = dp.events.list;
+        }
+
+        // event creating
+        dp.onTimeRangeSelected = function (args) {
+            eventArgs = args;
+            eventAction = "add";
+            $(".actionDelete").css({ "display": "none" });
+            $(".actionAdd").css({ "display": "block" });
+            $("#myModal").modal();
+        };
+
+
+        dp.onEventClick = function (args) {
+            eventArgs = args;
+            if (eventArgs.e.data.UserCreated ===  @Html.Raw(Json.Encode(ViewBag.userCreated))) {
+                eventAction = "edit";
+                $(".actionDelete").css({ "display": "none" });
+                $(".actionAdd").css({ "display": "block" });
+                $('#eventText').val(eventArgs.e.text());
+                $("#myModal").modal();
+            }
+        };
+
+        dp.init();
+        dp.events.list = eventList;
+        dp.update();
+
+
+        var nav = new DayPilot.Navigator("nav");
+        nav.showMonths = 3;
+        nav.skipMonths = 3;
+        nav.selectMode = "week";
+        nav.weekStarts = 1;
+        nav.locale = currentCulture;
+        nav.onTimeRangeSelected = function (args) {
+            dp.startDate = args.day;
+            dp.update();
+            loadEvents();
+        };
+        nav.init();
+        nav.select("@Html.Raw(ViewBag.visibleDateStart)");
+
+
+        function loadEvents() {
+            var start = dp.visibleStart();
+            var end = dp.visibleEnd();
+
+            $.post("events",
+                {
+                    startDate: start.toString(),
+                    endDate: end.toString()
+                },
+                function (data) {
+                    dp.events.list = data.events;
+                    idcurrentEvent = data.lastEventId;
+                    dp.update();
+                    nav.select(start);
+                });
+        }*@
+
+        //function previousWeek() {
+        //    dp.startDate = dp.startDate.addDays(-7);
+        //    nav.select(dp.startDate);
+        //    dp.update();
+        //    nav.update();
+        //}
+
+        //function nextWeek() {
+        //    dp.startDate = dp.startDate.addDays(+7);
+        //    nav.select(dp.startDate);
+        //    dp.update();
+        //    nav.update();
+        //}
+
+        @*$('#ModalConfirmButton').on("click", function (e) {
+
+            if (eventAction === "delete") {
+                var e = dp.events.find(eventArgs.e.id());
+
+                e.data.isDeleted = true;
+                dp.events.update(e);
+
+                eventsRemoved.events.add(e);
+                dp.events.remove(e);
+
+                eventList = dp.events.list;
+                eventArgs.preventDefault();
+            }
+
+            if (eventAction === "add") {
+                var text = $('#eventText').val();
+                dp.clearSelection();
+
+                if (!text) return;
+                var e = new DayPilot.Event({
+                    start: eventArgs.start,
+                    end: eventArgs.end,
+                    id: idcurrentEvent + 1,
+                    resource: eventArgs.resource,
+                    EventStart: eventArgs.start,
+                    EventEnd: eventArgs.end,
+                    isDeleted: false,
+                    isUpdated: false,
+                    text: text,
+                    barColor: @Html.Raw(Json.Encode(ViewBag.barColor)),
+                    deleteDisabled: false
+                });
+                dp.events.add(e);
+                eventList = dp.events.list;
+                idcurrentEvent = idcurrentEvent + 1;
+            }
+
+            if (eventAction === "edit") {
+                var text = $('#eventText').val();
+                if (text != eventArgs.e.text() || text != null) {
+                    eventArgs.e.data.text = text;
+                    eventArgs.e.data.isUpdated = true;
+                    dp.events.update(eventArgs.e);
+                    eventList = dp.events.list;
+                }
+            }
+            $('#myModal .close').click();
+        });
+
+        $('#ModalReturnButton').on("click", function (e) {
+            $('#myModal .close').click();
+        });
+
+
+        $("#btnSearchEvents").click(function () {
+            if ($('#dpDateStart').val()) {
+                dp.startDate = $('#dpDateStart').datepicker('getDate').toISOString();
+                dp.update();
+                loadEvents();
+            }
+        });
+
+        $("#btnSaveChanges").click(function () {
+            $('#token').val($('input[name="__RequestVerificationToken"]').val());
+            $('#eventsRemoved').val(JSON.stringify(eventsRemoved.events.list));
+            $('#noteList').val(JSON.stringify(eventList));
+            $('#startDate').val(dp.visibleStart());
+            $('#endDate').val(dp.visibleEnd());
+        });
+
+        $('#dpDateStart').datepicker({ dateFormat: 'dd-mm-yy' }).val();*@
+        //$('#dpDateEnd').datepicker();
+    //});
+</script>
+
+
+
+@*<div class="jumbotron">
+        <h1>@HIQResources.appName</h1>
+        <p class="lead">Sub Title</p>
+        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>*@
+
+@*<div class="row">
+        <div class="col-md-4">
+            <h2>Curso 1</h2>
+            <p>Detalhe do curso 1...</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Curso 2</h2>
+            <p>Detalhe do curso 2...</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Curso 3</h2>
+            <p>Detalhe do curso 2...</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@

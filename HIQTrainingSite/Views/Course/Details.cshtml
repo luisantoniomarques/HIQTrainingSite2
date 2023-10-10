@@ -1,0 +1,228 @@
+﻿@model HIQTrainingSite.ViewModel.CourseDetailsViewModel
+
+@{
+    ViewBag.Title = HIQResources.menuCourses;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleDetail</div>
+    </div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="md-content">
+            <div class="block-group">
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Level, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Level, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                                @Html.EditorFor(model => model.Teacher, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Entity, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Entity, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CloseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.CloseDate, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StartHour, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.StartHour, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndHour, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EndHour, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Effort, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Effort, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Observation, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Observation, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+
+                            <br />
+                            <br />
+                            @*@Html.HiddenFor(model => model.CourseCalendar)*@
+                            <div id="calendar" style="width:50%;height:50%;"></div>
+                            @*@Html.ValidationMessageFor(model => model.CourseCalendar, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsFinished, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.IsFinished, new {  @disabled = "disabled" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsCanceled, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.IsCanceled, new { @disabled = "disabled" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.isDtp, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(model => model.isDtp, new { @disabled = "disabled" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="cancelobs" style="display: none;">
+                        @Html.LabelFor(model => model.CanceledObservation, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.CanceledObservation, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            @if (Model.IsFinished || Model.IsCanceled)
+                            {
+                                @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-sm btn-detail disabled" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                            }
+
+                            @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-default btn-sm btn-edit" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section styles {
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <style>
+        input#IsFinished {
+            width: 17px; /*Desired width*/
+            height: 17px; /*Desired height*/
+        }
+
+       input#IsCanceled {
+            width: 17px; /*Desired width*/
+            height: 17px; /*Desired height*/
+        }
+    </style>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/lib/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.js"></script>
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>*@
+    <script src="~/Scripts/HIQTrainingScripts/Course/Details2.js"></script>
+
+<script>
+ 
+        $(document).ready(function () {
+            if ($("#IsCanceled")[0].checked) {
+                var el = document.getElementById('cancelobs');
+
+                if (el.style.display === 'none') {
+                    el.style.display = 'inherit';
+                } else if (el.style.display === 'inherit') {
+                    el.style.display = 'none';
+                }
+            }
+        });
+</script>
+   
+}

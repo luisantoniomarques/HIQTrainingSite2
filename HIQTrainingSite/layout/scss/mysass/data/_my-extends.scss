@@ -1,0 +1,42 @@
+/*** Uttilities ***/
+.pull-right                {float:right;}
+.pull-left                 {float:left;}
+.center-block              {margin: 0 auto; display: block;}
+.centrar-texto              {text-align: center}
+.mleft10                   {margin-left: 10px;}
+.mleft5                    {margin-left: 5px;}
+.mleft20                   {margin-left: 20px;}
+.mright10                  {margin-right: 10px;}
+.mright20                  {margin-right: 20px;}
+.mtop                      {margin-top: 60px;}
+.mtop20                    {margin-top: 20px;}
+.mbottom20                 {margin-bottom: 20px;}
+.mainblock                 {width: 90%;  margin: 0 auto;  margin-top: 20px; }
+.solid                     {box-shadow: -1px 2px 1px #000; border-radius: 10px; display: block; background-color: #323542; }
+.z-depth-0                 {box-shadow: none !important;}
+.z-depth-1                 {box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);}
+.z-depth-1-half            {box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);}
+.z-depth-2                 {box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+.ttitle {
+    padding: 1rem 2.4rem;
+    @include box-shadow(0px, 2px, 5px, -1px, #000);
+    @include roundedCorners(5);
+    float: left;
+    margin-right: 55px;
+    color: $hiq-main-blue3;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.login-box {
+    @include roundedCorners(5);
+    @extend .center-block;
+    @extend .z-depth-1;
+    background-color: $hiq-main-blue;
+    width: 35%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}

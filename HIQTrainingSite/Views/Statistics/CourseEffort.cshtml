@@ -1,0 +1,60 @@
+﻿@model HIQTrainingSite.ViewModel.CourseEffortViewModel
+
+@{
+    ViewBag.Title = HIQResources.menuStatistics;
+    {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">Carga horária da formação</div>
+    </div>
+
+    <div class="mtop20">
+        <div class="block-group search-box"> 
+                <div class="block b6">
+                    <div class="select-dropdown">
+                        @Html.DropDownListFor(model => model.CourseType, (IEnumerable<SelectListItem>)ViewBag.CourseTypes, HIQResources.titleCourseType)
+                    </div>
+                </div>
+            <div class="block b6">
+                <input type="button" id="typeButton" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+            </div>
+            <div class="block b6">
+                <div class="select-dropdown">
+                    @Html.DropDownListFor(model => model.SelectedMonth, (IEnumerable<SelectListItem>)ViewBag.Months, "Mês")
+                </div>
+            </div>
+            <div class="block b6">
+                <div class="select-dropdown">
+                    @Html.DropDownListFor(model => model.SelectedYear, (IEnumerable<SelectListItem>)ViewBag.Years, "Ano")
+                </div>
+            </div>
+            <input type="button" id="dateButton" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+            <input type="reset" id="clearButton" value=@HIQResources.buttonClean class="btn btn-default btn-sm" />
+        </div>
+    </div>
+    <br>
+    <div class="md-content">
+        <div class="block-group">
+            <div class="form-horizontal">
+                <div class="form-group">
+                        <div id="myGraph" style="width: 860px; height: 500px; margin:0 auto;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/Scripts/HIQTrainingScripts/Statistics/CourseEffort.js"></script>
+}

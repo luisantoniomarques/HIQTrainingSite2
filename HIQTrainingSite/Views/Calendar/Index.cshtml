@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = HIQResources.titleCalendarList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/calendar.css")" rel="stylesheet" />
+        <link href="~/Content/fullcalendar.css" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleCalendarList</div>
+    </div>
+
+    <div class="block-group">
+        <div id="calendar"></div>
+        <br />
+    </div>
+
+</div>
+
+<div class="modal fade" id="myModalShowCourseDetails">
+    <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+
+            <div class="block-group" style="background-color:#303240">
+                <div style="padding: 25px;">
+                    <h4><label id="courseName"></label></h4>
+                </div>
+                <div class="modalTable">
+                    <table class="table" id="tableResult" style="padding:10px;">
+                        <tr>
+                            <td style="color:#14bff3; text-align:left; margin-right:20px">
+                                @HIQResources.labelFormativeEntityName
+                            </td>
+                            <td>
+                                <label id="courseEntityName"></label>
+                            </td>
+                            <td style="color:#14bff3; text-align:left">
+                                @HIQResources.labelCourseLevel
+                            </td>
+                            <td>
+                                <label id="courseLevel"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:#14bff3; text-align:left">
+                                @HIQResources.labelTeacherName
+                            </td>
+                            <td>
+                                <label id="courseTeacher"></label>
+                            </td>
+                            <td style="color:#14bff3; text-align:left">
+                                @HIQResources.labelStartDate
+                            </td>
+                            <td>
+                                <label id="courseDate"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:#14bff3; text-align:left">
+                                @HIQResources.labelNumberHours
+                            </td>
+                            <td>
+                                <label id="courseEffort"></label>
+                            </td>
+                            <td style="color:#14bff3; text-align:left">
+                                @HIQResources.labelCourseStatus
+                            </td>
+                            <td>
+                                <label id="courseStatusDescription"></label></td>
+                        </tr>
+                        
+
+                        @*<tbody id="courseResult"></tbody>*@
+                    </table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">@HIQResources.buttonBack</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/lib/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.js"></script>
+    <script src="~/Scripts/HIQTrainingScripts/Calendar/Index.js"></script>
+}

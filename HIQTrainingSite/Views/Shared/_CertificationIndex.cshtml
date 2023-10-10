@@ -1,0 +1,77 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationListViewModel
+@{
+    Layout = string.Empty;
+}
+
+<div id="searchResults">
+    <table class="table">
+        <tr>
+            <th>
+                @HIQResources.labelStudentName
+            </th>
+            <th>
+                @HIQResources.labelCompanyName
+            </th>
+            <th>
+                @HIQResources.labelStudentStatus
+            </th>
+
+            <th>
+                @HIQResources.titleOperations
+            </th>
+        </tr>
+
+        @foreach(var item in Model.CertificationList) {
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                    @Html.HiddenFor(modelItem => item.StudentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentCompany)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusDescription)
+                    @Html.HiddenFor(modelItem => item.StudentStatusId)
+                </td>
+                <td>
+                    <a href="@Url.Action("CertificationList", new { id=item.Id, nome=item.StudentName })" class="btn btn-default btn-sm btn-formation"> @*onclick="getPartialView('@item.Id', '@item.StudentName');*@
+                        @HIQResources.buttonCertifications <span class="badge">@item.StudentNumberCertifications</span>
+                    </a>
+                    @Html.HiddenFor(model => model.StudentId)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    <div class="pagedList text-center">
+        @Html.PagedListPager(Model.CertificationList, page => Url.Action("_CertificationIndex", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "searchResults" }))
+    </div>
+
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+
+<script>
+    function getPartialView(id, name) {
+        $.ajax({
+            url: '/Certification/_CertificationStudent?id=' + id + "&nome=" + name,
+            type: 'get',
+            datatype: 'json',
+            success: function (data) {
+                $('div#certificationResults').html(data);
+                $('#StudentId').val(id);
+                $('div#certificationResults').show();
+                $('#exportBtn')[0].style.display = 'initial';
+                $("#searchLabel")[0].style.display = 'initial';
+                $("#searchField")[0].style.display = 'initial';
+                $("div#certificationResults").get(0).scrollIntoView(); // just scroll down for good measure.
+            }
+        });
+    }
+
+</script>

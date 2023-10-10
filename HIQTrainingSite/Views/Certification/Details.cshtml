@@ -1,0 +1,87 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCertificationList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleDetail</div>
+    </div>
+   
+
+    <div class="md-content">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StudentEmail, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(model => model.Id)
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedEntity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.SelectedEntity, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StatusDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StatusDescription, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Result, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Result, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Observation, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Observation, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                    @Html.ActionLink(HIQResources.buttonBack, "CertificationList", new { id = Model.StudentId, nome = Model.StudentName }, new { @class = "btn btn-default btn-sm btn-edit" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

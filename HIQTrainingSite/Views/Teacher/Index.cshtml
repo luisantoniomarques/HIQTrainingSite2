@@ -1,0 +1,251 @@
+﻿@model HIQTrainingSite.ViewModel.TeacherListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleTeacherList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+
+@using (Ajax.BeginForm("SearchTeacher", "Teacher",
+                                                                        new AjaxOptions
+                                                                        {
+                                                                            InsertionMode = InsertionMode.Replace,
+                                                                            HttpMethod = "GET",
+                                                                            OnFailure = "searchFailed",
+                                                                            LoadingElementId = "ajax-loader",
+                                                                            UpdateTargetId = "searchTeacherResults",
+                                                                        }))
+{
+    <div class="mainblock">
+        <div class="block-group">
+            <div class="ttitle">@HIQResources.titleTeacherList</div>
+            @Html.ActionLink(HIQResources.buttonAdd, "Create", null, new { @class = "btn btn-lg btn-default md-trigger" })
+
+        </div>
+        <div class="mtop20">
+            <div class="block-group search-box ">
+                <div class="block b6">
+                    @Html.EditorFor(model => model.Search.Name, new { htmlAttributes = new { @class = "filter", @Name = "name", @placeholder = "procurar por nome" } })
+                </div>
+                <div class="block b6">
+                    <div class="select-dropdown">
+                        @Html.DropDownListFor(model => model.Search.Companies.SelectedCompanyId, Model.Search.Companies.CompanyNames, htmlAttributes: new { @Name = "companyId" })
+                    </div>
+                </div>
+                <div class="block b6">
+                    <div class="select-dropdown">
+                        @Html.DropDownListFor(model => model.Search.Status, Model.Search.StatusItems, htmlAttributes: new { @Name = "status" })
+                    </div>
+                </div>
+                <input type="submit" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+                <input type="reset" value=@HIQResources.buttonClean class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Index", "Teacher")'" />
+            </div>
+        </div>
+        @Html.Partial("_TeacherList", Model)
+        @Html.Partial("_AlertMessage", Model.Alert)
+        @Html.Partial("_ModalDelete")
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="modal fade" id="courseListModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="block-group" style="background-color:#303240">
+                        <div style="padding: 25px;">
+                            <h4 id="teacherNameHeader" style="color:#14BFF3">@HIQResources.titleCourseList : </h4>
+                        </div>
+                        <div class="modalTable">
+                            <div class="block-group search-box">
+                                <label id="searchLabel">
+                                    <input id="searchField" class="filter text-box single-line" type="text" placeholder="procurar por nome" style="width:200px;" />
+                                    <button id="exportBtn" class="btn btn-default btn-sm">Export Formacoes</button>
+
+                                </label>
+                            </div>
+                            <table class="table" id="tableResult">
+                                <tr>
+                                    <th>
+                                        @HIQResources.labelCourseName
+                                    </th>
+                                    <th>
+                                        @HIQResources.labelFormativeEntityName
+                                    </th>
+                                    <th>
+                                        @HIQResources.labelCourseLevel
+                                    </th>
+                                    <th>
+                                        @HIQResources.labelTeacherName
+                                    </th>                    
+                                    <th>
+                                        @HIQResources.labelStartDate
+                                    </th>
+                                    <th>
+                                        @HIQResources.labelNumberHours
+                                    </th>
+                                    <th>
+                                        @HIQResources.labelCourseStatus
+                                    </th>
+                                </tr>
+
+                                <tbody id="coursesResult"></tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">@HIQResources.buttonBack</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+    <br />
+
+}
+
+
+
+
+@section Scripts {
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+@Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")
+@Scripts.Render("~/Scripts/paging.js")
+@Scripts.Render("~/Scripts/table2csv.js")
+
+    <script type="text/javascript">
+
+        $('#myModal .close').click(function () {
+            window.location.href = "http://localhost:56250/Teacher/Index";
+        });
+
+        function searchFailed() {
+            $("#searchResults").html("@Html.Raw(@HIQResources.errorMessageExceptionOccurred)");
+        }
+
+
+        var id;
+
+        $('[name="deleteArgs"]').on("click", function (e) {
+            var button = $(e.target); // Button that triggered the modal
+            id = button.attr('data-hiq-teacher-id'); // Extract info from data-* attributes
+        });
+
+        $(function () {
+            $("#ModalDeleteButton").on("click", function (e) {
+                var token = $('input[name="__RequestVerificationToken"]').val();
+
+                $.post("/Teacher/Delete/",
+                    {
+                        __RequestVerificationToken: token,
+                        id: id
+                    },
+                    function (data) {
+                        $('#myModal .close').click();
+
+                        var baseurl = '@Url.Action("Index")';
+
+                        var url = baseurl + "?message=" + data;
+                        window.location.href = url;
+                    });
+                
+            });
+        });
+
+        $(".btnTeacherCourses").on("click", function (e) {
+            e.preventDefault();
+ 
+            var id = $(this).attr('data-hiq-teacher-id');
+            var teacherName = $(this).attr('data-hiq-teacher-name');
+
+            $("#teacherNameHeader").html("@Html.Raw(@HIQResources.titleCourseList + " de " )" + teacherName);
+
+
+            $.ajax({
+                type: 'GET',
+                url: '/Course/GetCoursesByTeacher',
+                data: { id: id },
+                success: function (data) {
+                    var rows = '';
+                    var displaycolor = '';
+                    if (data) {
+                        $.each(data, function (index, item) {
+                                switch (item.StatusDescription) {
+                                    case "Concluído":
+                                        displaycolor = "#2267d6";
+                                        break;
+                                    case "Cancelada":
+                                        displaycolor = "#c40000";
+                                        break;
+                                    case "Por Iniciar":
+                                        displayColor = "#e6ac00";
+                                        break;
+                                    case "A decorrer":
+                                        displayColor = "#008900";
+                                        break;
+                                }
+                            var newRow = ('<tr><td>' + item.Name + '</td><td>' + item.FormativeEntity +
+                                '</td><td>' + item.Level + '</td><td>' + item.Teacher +
+                                '</td><td>' + item.DateOnly + '</td>' + '<td>' + item.Effort + ' h' +'</td><td><span class="label" style="background-color:' + displaycolor + '">' + item.StatusDescription +
+                                          '</span></td></tr>');
+                            rows = rows.concat(newRow);
+                        });
+                    }
+                    $('#coursesResult').html(rows);
+                    $('#tableResult').paging(); // custom paging lib since we're ajaxing this directly to the page...
+                    $('#exportBtn')[0].style.display = 'initial';
+                    $("#searchLabel")[0].style.display = 'initial';
+                    $("#searchField")[0].style.display = 'initial';
+                    $("#teacherNameHeader").get(0).scrollIntoView(); // just scroll down for good measure.
+                }
+            });
+        });
+
+        $('#exportBtn').click(function () {
+            $("#coursesResult").tableToCSV();
+        });
+
+        $('#searchField').keyup(function () {
+            searchTable($(this).val());
+        });
+
+        function searchTable(inputVal)
+        {
+
+            var table = $('#coursesResult');
+
+            table.find('tr').each(function(index, row)
+            {
+                var allCells = $(row).find('td');
+
+                if(allCells.length > 0)
+                {
+                    var found = false;
+
+                    allCells.each(function(index, td)
+                    {
+                        var regExp = new RegExp(inputVal, 'i');
+
+                        if(regExp.test($(td).text()))
+                        {
+                            found = true;
+                            return false;
+                        }
+                    });
+
+                    if (found == true) {
+                        $(row).show();
+                        $(row)[0].hidden = false;
+                    } else {
+                        $(row).hide();
+                        $(row)[0].hidden = true;
+                    }
+                }
+            });
+        }
+    </script>
+}

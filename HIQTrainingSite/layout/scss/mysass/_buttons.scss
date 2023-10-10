@@ -1,0 +1,139 @@
+// BUTTONS
+button:focus {
+    outline: none!important;
+}
+
+.btn {
+    font-size: 0.8rem;
+    padding: 0.85rem 2.13rem;
+    &.btn-lg {
+        font-size: 0.9rem;
+        padding: 1rem 2.4rem;
+        background-color: $hiq-main-blue2;
+    }
+    &.btn-round {
+        font-size: 0.9rem;
+        padding: 1.2rem 1.2rem;
+        background-color: $hiq-main-blue2;
+        @include roundedCorners(50);
+    }
+    &.btn-md {
+        font-size: 0.7rem;
+        padding: 0.7rem 1.6rem;
+        background-color: $hiq-main-blue2;
+    }
+    &.btn-login {
+        font-size: 0.7rem;
+        padding: 1rem 2.4rem;
+        background-color: $hiq-yellow;
+        color: $hiq-main-blue2;
+    }
+    &.btn-sm {
+        font-size: 0.6rem;
+        background-color: $hiq-main-blue2;
+        padding: 0.5rem 1.6rem;
+        &.btn-table {
+            padding: 0.5rem 0.9rem;
+        }
+        &.btn-forms {
+            font-size: 0.6rem;
+            background-color: $hiq-main-blue2;
+            padding: 0.5rem 1.6rem;
+            margin: 0 !important;
+        }
+    }
+}
+
+.btn {
+    border-radius: 5px;
+    border: 0;
+    @extend .z-depth-1;
+    transition: .2s ease-out;
+    color: $hiq-light-grey;
+    margin: 6px;
+    white-space: normal !important;
+    word-wrap: break-word;
+    cursor: pointer;
+    text-transform: uppercase;
+    &:hover {
+        @extend .z-depth-1-half;
+        color: #fff;
+    }
+    &:active,
+    &:focus,
+    &.active {
+        outline: 0;
+        color: #fff;
+        @extend .z-depth-1-half;
+    }
+    .fa {
+        font-size: 1.1rem;
+        position: relative;
+        vertical-align: middle;
+        margin-top: -2px;
+        &.right {
+            margin-left: 3px;
+        }
+        &.left {
+            margin-right: 3px;
+        }
+    }
+}
+
+.btn-default {
+    background: $hiq-main-blue;
+    border-top: 1px solid rgba(245, 237, 237, 0.15);
+    border-right: 1px solid rgba(245, 237, 237, 0.15);
+    font-weight: bold;
+    &:hover,
+    &:focus,
+    &:active {
+        color: $hiq-white;
+    }
+    &.active {
+        background-color: $hiq-yellow;
+        @extend .z-depth-1-half;
+    }
+}
+
+.btn-secondary {
+    background-color: $hiq-yellow;
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $hiq-black;
+        color: #fff;
+    }
+    &.active {
+        background-color: $hiq-black;
+        @extend .z-depth-1-half;
+        &:hover {
+            color: #fff;
+        }
+        &:focus {
+            color: #fff;
+        }
+    }
+    &.dropdown-toggle {
+        color: #fff;
+        background-color: $hiq-yellow;
+        @extend .z-depth-1-half;
+        &:hover {
+            color: #fff;
+            background-color: $hiq-black;
+        }
+        &:focus {
+            color: #fff;
+            background-color: $hiq-black;
+        }
+    }
+}
+
+.btn-secondary {
+    &.disabled,
+    &:disabled {
+        background-color: #aa66cc;
+        cursor: not-allowed;
+        pointer-events: auto !important;
+    }
+}

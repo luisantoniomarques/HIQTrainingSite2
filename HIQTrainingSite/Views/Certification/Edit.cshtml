@@ -1,0 +1,133 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCertificationList;
+
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+        <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleEdit</div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="md-content">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.StudentId)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.StudentEmail, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.StudentEmail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.HiddenFor(model => model.CertificationTypeId)
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pdf, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @*<input type="file" name="file" />*@
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm", @type="file" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectedEntityId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedEntityId, Model.EntitiesDrop, htmlAttributes: new { @class = "form-control inputForm"  })
+                        @Html.HiddenFor(model => model.SelectedEntityId)
+                        @Html.ValidationMessageFor(model => model.SelectedEntityId, "", new {  @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StatusId, htmlAttributes: new  { @class = "control-label col-md-2"  })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.StatusId, Model.StatusDrop, htmlAttributes: new { @class = "form-control inputForm" })
+                        @Html.HiddenFor(model => model.StatusId)
+                        @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Result, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Result, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.Result, "", new { @class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Observation, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Observation, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.Observation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-detail" />
+                        @Html.ActionLink(HIQResources.buttonBack, "CertificationList", new { id = Model.StudentId, nome = Model.StudentName }, new { @class = "btn btn-default btn-sm btn-edit" })
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    }
+        </div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/HIQTrainingScripts/Certification/Edit.js"></script>
+    <script>
+        $("#Date").datepicker({ dateFormat: 'yy/mm/dd' });
+    </script>
+
+}

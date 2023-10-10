@@ -1,0 +1,103 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationListViewModel
+@{
+    Layout = string.Empty;
+}
+
+
+ 
+
+
+<div class="block-group">
+ 
+    <div class="ttitle title">
+        <z id="text">
+                 @HIQResources.labelStudentCertifications @Model.DisplayName
+        </z>    
+    </div>
+    @Html.ActionLink(HIQResources.buttonAddCertification, "Create", new { id = Model.StudentId }, new { @class = "btn btn-lg btn-default md-trigger", onclick = "goCreate();" })
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @HIQResources.labelCourseName
+        </th>
+        <th>
+            @HIQResources.labelFormativeEntityName
+        </th>
+        <th>
+            @HIQResources.labelDate
+        </th>
+        <th>
+            @HIQResources.titleOperations
+        </th>
+    </tr>
+
+    @foreach(var item in Model.CertificationList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CertificationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Entity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOnly)
+            </td>
+            <td>
+                @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit" })
+                @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-id="@item.Id">
+                    @HIQResources.buttonDelete
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="pagedList text-center">
+    @Html.PagedListPager(Model.CertificationList, page => Url.Action("_CertificationStudent", new { id = @Model.CertificationList.FirstOrDefault().StudentId, nome = Model.CertificationList.FirstOrDefault().StudentName, page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "certificationResults" }))
+</div>
+
+<script>
+    function goCreate() {
+        $.ajax({
+            url: '/Certification/Create/' + $("#StudentId").val(),
+            data: {
+                id: $("#StudentId").val()
+            },
+            type: 'get',
+            datatype: 'json',
+            success: function (data) {
+               window.location.href = '/Certification/Create/' + $("#StudentId").val();
+            }
+        });
+    }
+</script>
+
+
+
+
+
+@*<script>
+    function getPartialView(id, name) {
+        $.ajax({
+            url: '/Certification/_CertificationStudent?id=' + id + "&nome=" + name,
+            type: 'get',
+            datatype: 'json',
+            success: function (data) {
+                $('div#certificationResults').html(data);
+                $("#StudentId").val(id);
+                $('div#certificationResults').show();
+                $('#exportBtn')[0].style.display = 'initial';
+                $("#searchLabel")[0].style.display = 'initial';
+                $("#searchField")[0].style.display = 'initial';
+                $("div#certificationResults").get(0).scrollIntoView(); // just scroll down for good measure.
+            }
+        });
+    }
+
+</script>*@

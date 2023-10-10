@@ -1,0 +1,47 @@
+﻿@model HIQTrainingSite.ViewModel.StudentViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleStudent;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleStudent @HIQResources.titleAdd</div>
+    </div>
+
+    <div class="md-content"> 
+        <div class="block-group">
+            @using (Html.BeginForm("Create", "Student", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.Hidden("isExternal")
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.Partial("_SearchStudent", Model)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" />
+                            @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-default btn-sm btn-edit", Href = Request.UrlReferrer })
+                        </div>
+                    </div>
+                 </div>
+            }
+        </div>
+       </div>
+
+  
+  </div>
+@section styles {
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Scripts/HIQTrainingScripts/Student/SearchStudent.js")
+        <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    }

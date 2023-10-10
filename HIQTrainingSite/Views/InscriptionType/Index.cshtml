@@ -1,0 +1,72 @@
+﻿@model HIQTrainingSite.ViewModel.InscriptionTypeListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleInscriptionTypeList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+
+
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle">@HIQResources.titleDetail @HIQResources.titleInscriptionTypeList</div>
+        @Html.ActionLink(HIQResources.buttonAdd, "Create", null, new { @class = "btn btn-lg btn-default md-trigger" })
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <table class="table">
+            <tr>
+                <th>@HIQResources.labelInscriptionTypeName</th>
+                <th>@HIQResources.titleOperations</th>
+            </tr>
+
+            @foreach (var item in Model.InscriptionTypesList)
+            {
+                <tr>
+
+                    <td>
+                        @Html.HiddenFor(modelItem => item.Id)
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit" })
+                        @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-id="@item.Id">
+                            @HIQResources.buttonDelete
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div class="pagedList text-center">
+            @Html.PagedListPager(Model.InscriptionTypesList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+
+
+        @Html.Partial("_ModalDelete")
+        @Html.Partial("_AlertMessage", Model.Alert)
+
+ </div>
+
+        @section Scripts {
+            <script type="text/javascript">
+                $(function () {
+                    $('#myModal').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget) // Button that triggered the modal
+                        var id = button.attr('data-id') // Extract info from data-* attributes
+                        $('#deleteForm').attr("action", "/InscriptionType/Delete/" + id);
+                    })
+                });
+            </script>
+        }

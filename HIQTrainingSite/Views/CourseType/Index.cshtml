@@ -1,0 +1,63 @@
+﻿@model HIQTrainingSite.ViewModel.CourseTypeListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>@HIQResources.titleCourseTypeList</h2>
+
+<p>
+    @Html.ActionLink(HIQResources.buttonAdd, "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+
+<table class="table">
+    <tr>
+        
+        <th>@HIQResources.labelCourseLevelName</th>
+       
+        <th>@HIQResources.titleOperations</th>
+
+      
+    </tr>
+
+@foreach (var item in Model.CourseTypes) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+      
+       
+        <td>
+            @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+            @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" data-id="@item.Id">
+                @HIQResources.buttonDelete
+            </button>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pagedList text-center">
+    @Html.PagedListPager(Model.CourseTypes, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+
+
+@Html.Partial("_ModalDelete")
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#myModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var id = button.attr('data-id') // Extract info from data-* attributes
+                $('#deleteForm').attr("action", "/CourseType/Delete/" + id);
+            })
+        });
+    </script>
+}

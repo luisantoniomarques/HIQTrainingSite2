@@ -1,0 +1,64 @@
+﻿@model HIQTrainingSite.ViewModel.CourseSuccessRateViewModel
+
+@{
+    ViewBag.Title = HIQResources.menuStatistics;
+    @section css
+    {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">Estatísticas de Formação</div>
+    </div>
+    <div class="md-content">
+        <div class="form-horizontal">
+            <br />
+            <div id="tabs">
+                <div class="form-group">
+                    @Html.Label(HIQResources.labelCourseName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control inputForm", @placeholder = "Nome da formação" } })
+                        @Html.HiddenFor(model => model.CourseId)
+                    </div>
+                </div>
+                       
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a id="successTab" data-toggle="tab" href="#successPane">Taxa de sucesso</a></li>
+                    <li><a id="attendanceTab" data-toggle="tab" href="#attendancePane">Taxa de assiduidade</a></li>
+                    <li><a id="dropoutTab" data-toggle="tab" href="#dropoutPane">Taxa de cancelamento</a></li>
+                    <li><a id="levelsTab" data-toggle="tab" href="#levelsPane">Patamares de assiduidade</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="successPane" class="tab-pane fade in active">
+                        <div id="successGraph" style="width: 860px; height: 500px; margin:0 auto;"></div>
+                    </div>
+                    <div id="attendancePane" class="tab-pane fade">
+                        <div id="attendanceGraph" style="width: 860px; height: 500px; margin:0 auto;"></div>
+                    </div>
+                    <div id="dropoutPane" class="tab-pane fade">
+                        <div id="dropoutGraph" style="width: 860px; height: 500px; margin:0 auto;"></div>
+                    </div>
+                    <div id="levelsPane" class="tab-pane fade">
+                        <div id="levelsGraph" style="width: 860px; height: 500px; margin:0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section styles {
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/lib/moment.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/Scripts/HIQTrainingScripts/Statistics/CourseStatistics.js"></script>
+    @*<script src="~/Scripts/HIQTrainingScripts/Statistics/CourseAttendanceRate.js"></script>*@
+
+}

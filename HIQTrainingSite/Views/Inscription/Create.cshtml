@@ -1,0 +1,221 @@
+﻿@model HIQTrainingSite.ViewModel.InscriptionViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleInscription;
+    ViewBag.Student1 = Model.Student;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleInscription @HIQResources.titleAdd</div>
+    </div>
+    @Html.HiddenFor(model => model.CourseId)
+    @Html.HiddenFor(model => model.CourseName)
+
+    @using (Html.BeginForm())
+    {
+      
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+            @Html.Hidden("isExternal")
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.HiddenFor(model => model.TypeId)
+                        @Html.DropDownListFor(model => model.InscriptionTypes.SelectedInscriptionTypeId, Model.InscriptionTypes.InscriptionTypeItems, htmlAttributes: new { @class = "form-control inputForm", @Id = "SelectedTypeId" })
+                        @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="studentDiv"> @Html.Partial("_inscription", Model.Student)</div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" id="validation" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" />
+                        @Html.ActionLink(HIQResources.buttonBack, "Index", new { CourseId = Model.CourseId }, new { @class = "btn btn-default btn-sm btn-edit" })
+                    </div>
+                </div>
+
+           
+
+            </div>
+            <div class="form-group" hidden>
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" id="Save" data-toggle="modal" data-target="#MultipleInscriptions" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group" hidden>
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="commitSave" class="btn btn-primary" />
+                </div>
+            </div>
+            @Html.Partial("_MultipleInscription")
+    }
+
+    <div class="modal fade" id="myModalCreateStudent">
+        <div class="modal-dialog" style="width:1500px;">
+            <div class="modal-content">
+                <div class="block-group" style="background-color:#303240">
+                    @{Html.RenderAction("CreatePartialViewStudent", "Inscription");}
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div> 
+
+
+
+        @section styles {
+            <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+        }
+
+    <script>
+        $(document).ready(function () {
+
+            if (@Html.Raw(Json.Encode(ViewBag.statusChekedboxInternal)) == "OpenModal") {
+                $("#checkboxInternal").prop('checked', true);
+                $('#studentDiv').css('display', "block");
+                $('#Name').css('display', "block");
+
+
+            }
+
+            if (@Html.Raw(Json.Encode(ViewBag.OpenModal)) == "OpenModal") {
+                $('#myModalCreateStudent').modal('show');
+                if (@Html.Raw(Json.Encode(ViewBag.statusChekedboxInternal2)) == "checked") {
+                    $("#checkboxInternal2").prop('checked', true);
+                    StartautoComplete2();
+                    $('#formularioStudent2').css('display', "block");
+                    if (@Html.Raw(Json.Encode(ViewBag.AddModelError)) == "DuplicateName") {
+                        $("#duplicateName").text("O nome inserido já existe.");
+
+                    }
+                }
+
+            }
+
+            if (@Html.Raw(Json.Encode(ViewBag.ValueCompany)) != null) {
+                if (@Html.Raw(Json.Encode(ViewBag.ValueCompany)) != null && @Html.Raw(Json.Encode(ViewBag.typeCompany)) == false) {
+                    $('#SelectedCompanyId').val(@Html.Raw(Json.Encode(ViewBag.ValueCompany)));
+                } else {
+
+                    var options = $("#SelectedCompanyId");
+                        $.ajax({
+                            url: '/student/SearchExternalCompany',
+                            type: 'GET',
+                            data: { external: "true" },
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                options.empty();
+                                $.each(data, function () {
+                                    options.append($("<option/>").val(this.Id).text(this.Name));
+                                });
+                            }
+                        })
+
+                    $('#SelectedCompanyId').val(@Html.Raw(Json.Encode(ViewBag.ValueCompany)));
+                }
+
+            }
+         });
+    </script>
+
+        @section Scripts {
+ 
+            @*@Scripts.Render("~/Scripts/HIQTrainingScripts/Student/SearchStudent.js")*@
+            @Scripts.Render("~/Scripts/HIQTrainingScripts/inscription/inscription.js")
+            @Scripts.Render("~/Scripts/HIQTrainingScripts/inscription/student_inscription.js")
+
+            <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+ <script type="text/javascript">
+
+
+
+
+        $("#validation").click(function () {
+
+            $("#Name").attr("name", "Student.Name");
+            $("#Email").attr("name", "Student.Email");
+            $("#CompanyId").attr("name", "Student.CompanyId");
+            $("#Observation").attr("name", "Student.Observation");
+
+            var selectedTypeId = $("#SelectedTypeId").val();
+            $("#TypeId").val(selectedTypeId);
+
+            $("#SelectedTypeId").on("change", function () {
+                var selectedTypeId = $("#SelectedTypeId").val();
+                $("#TypeId").val(selectedTypeId);
+            });
+
+
+
+            var name = $("#Name").val();
+            var mail = $("#Email").val();
+
+            $.ajax({
+                url: "/Inscription/StudentIsInscripted",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    name: name,
+                    mail: mail
+                },
+                success: function (result) {
+                    if (result.StudentInscripted == true)
+                    {
+
+                        document.getElementById("Save").click();
+
+                        $("#ConfirmationButton").click(function () {
+                            $("#commitSave").click();
+
+                        });
+
+                    } else
+                    {
+
+                        $("#commitSave").click();
+                    }
+
+                }
+
+
+            });
+        });
+
+        // submit button pressed
+        $("#commitSave").click(function () {
+            $.ajax({
+                                url: "/Inscription/Create",
+                                type: "POST",
+                                data: $('@Model').serialize(),
+                                sucess: function (result) {
+
+                                    alert("sucess");
+                                }
+
+
+                            });
+        });
+
+
+
+ </script>
+        }

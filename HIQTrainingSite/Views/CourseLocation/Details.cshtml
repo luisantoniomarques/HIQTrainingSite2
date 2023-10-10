@@ -1,0 +1,76 @@
+﻿@model HIQTrainingSite.ViewModel.CourseLocationViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCourseType;
+    {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+
+    <div class="mainblock">
+        <div class="block-group">
+            <div class="ttitle title">@HIQResources.titleDetail @HIQResources.titleCourseLocation</div>
+        </div>
+
+
+
+        <div class="md-content">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DisplayColor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.DisplayColor, new { htmlAttributes = new { @class = "form-control inputFormColor", @readonly = "readonly" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.UserCreated, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserUpdated, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.UserUpdated, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UpdateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.UpdateDate, new { htmlAttributes = new { @class = "form-control inputForm", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                        @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-default btn-sm btn-edit" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/jscolor.js"></script>
+    <script>
+        $("#DisplayColor").css('background-color', "#" + $("#DisplayColor").val());
+        $("#DisplayColor").val('');
+    </script>
+}

@@ -1,0 +1,190 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationViewModel
+
+@{
+    ViewBag.Title = HIQResources.submenuCertificationResult;
+}
+
+<h2>@HIQResources.submenuCertificationResult</h2>
+
+
+@using(Html.BeginForm("Create", "Certification", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@HIQResources.titleAdd</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentName, htmlAttributes: new {
+           @class = "control-label col-md-2"
+       })
+            <div class="col-md-10">
+                <div class="col-lg-4" style="margin-left:-1.5%;">
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.StudentName, new {
+                       htmlAttributes = new {
+                           @class = "form-control"
+                       }
+                   })
+                        <span class="input-group-btn">
+                            <a href="@Url.Action("Create", "Student", new { returnUrl = Request.Url })" class="btn btn-default"> @HIQResources.buttonAdd</a>
+                        </span>
+                    </div>
+
+                    @Html.HiddenFor(model => model.StudentId)
+                    @Html.ValidationMessageFor(model => model.StudentName, "", new {
+                   @class = "text-danger"
+               })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentEmail, htmlAttributes: new {
+           @class = "control-label col-md-2"
+       })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentEmail, new {
+               htmlAttributes = new {
+                   @class = "form-control",
+                   @readonly = "readonly"
+               }
+           })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new {
+           @class = "control-label col-md-2"
+       })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new {
+               htmlAttributes = new {
+                   @class = "form-control"
+               }
+                })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CertifictionTypeId)
+                @Html.ValidationMessageFor(model => model.Name, "", new {
+           @class = "text-danger"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new {
+       @class = "control-label col-md-2"
+   })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new {
+           htmlAttributes = new {
+               @class = "form-control", @readonly = "readonly"
+           }
+       })
+                @Html.ValidationMessageFor(model => model.Code, "", new {
+           @class = "text-danger", @readonly = "readonly"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedEntityId, htmlAttributes: new {
+       @class = "control-label col-md-2"
+   })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedEntityId, Model.EntitiesDrop, htmlAttributes: new {
+           @class = "form-control"
+       })
+                @Html.HiddenFor(model => model.SelectedEntityId)
+                @Html.ValidationMessageFor(model => model.SelectedEntityId, "", new {
+           @class = "text-danger"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StatusId, htmlAttributes: new {
+       @class = "control-label col-md-2"
+   })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.StatusId, Model.StatusDrop, htmlAttributes: new {
+           @class = "form-control"
+       })
+                @Html.HiddenFor(model => model.StatusId)
+                @Html.ValidationMessageFor(model => model.StatusId, "", new {
+           @class = "text-danger"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Result, htmlAttributes: new {
+       @class = "control-label col-md-2"
+   })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Result, new {
+           htmlAttributes = new {
+               @class = "form-control"
+           }
+       })
+                @Html.ValidationMessageFor(model => model.Result, "", new {
+           @class = "text-danger"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new {
+       @class = "control-label col-md-2"
+   })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new {
+           htmlAttributes = new {
+               @class = "form-control"
+           }
+       })
+                @Html.ValidationMessageFor(model => model.Date, "", new {
+           @class = "text-danger"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Observation, htmlAttributes: new {
+       @class = "control-label col-md-2"
+   })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Observation, new {
+           htmlAttributes = new {
+               @class = "form-control"
+           }
+       })
+                @Html.ValidationMessageFor(model => model.Observation, "", new {
+           @class = "text-danger"
+       })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@HIQResources.buttonSave" class="btn btn-primary" id="SubmitButton" />
+            </div>
+        </div>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-primary" })
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/lib/moment.min.js"></script>
+
+    <script src="~/Scripts/HIQTrainingScripts/Certification/CreateFullCertification.js"></script>
+    <script>
+        $("#Date").datepicker();
+        $("#Date").datepicker("option", "dateFormat", "yy-mm-dd");
+    </script>
+}

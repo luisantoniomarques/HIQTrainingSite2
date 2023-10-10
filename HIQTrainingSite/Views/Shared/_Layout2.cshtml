@@ -1,0 +1,162 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Globalization
+@using System.Threading;
+@using HIQTrainingSite.ViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>HIQ - Training</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("styles", required: false)
+    @RenderSection("css", required: false)
+    <!--build:css css/styles.min.css-->
+    @*<link href="~/layout/css/styles.css" rel="stylesheet">*@
+  
+
+
+    <!--endbuild-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+    <div class="menulayout">
+        <div class="block-group">
+            <header class="block">
+                <div class="topnav" id="myTopnav">
+                    <div class="brand">
+                        <a href="/Home/index"><span class="colory"> HIQ </span> - TRAINNING </a>
+                    </div>
+
+                    <div class="menu-right">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a class="dropbtn" onclick="myFunctionAll(0)">@HIQResources.menuCourses<span><i class="fa fa-caret-down mleft5" aria-hidden="true"></i></span></a>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        @Html.ActionLink(HIQResources.submenuCalendar, "Index", "Calendar")
+                                        @Html.ActionLink(HIQResources.submenuCourses, "Index", "Course")
+                                        @Html.ActionLink(HIQResources.submenuStudents, "Index", "Student")
+                                        @Html.ActionLink(HIQResources.submenuTeacher, "Index", "Teacher")
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a class="dropbtn" onclick="myFunctionAll(1)" href="#">@HIQResources.menuCertification<span><i class="fa fa-caret-down mleft5" aria-hidden="true"></i></span> </a>
+                                    <div class="dropdown-content" id="myDropdown1">
+                                        @Html.ActionLink(HIQResources.submenuCertificationResult, "Index", "Certification")
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a class="dropbtn" onclick="myFunctionAll(2)" href="#">@HIQResources.menuStatistics<span><i class="fa fa-caret-down mleft5" aria-hidden="true"></i></span> </a>
+                                    <div class="dropdown-content" id="myDropdown2">                                       
+                                        @Html.ActionLink(HIQResources.submenuCourseStatistics, "CourseStatistics", "Statistics")
+                                        @Html.ActionLink(HIQResources.submenuCourseEffort, "CourseEffort", "Statistics")
+                                        @Html.ActionLink(HIQResources.submenuCompanyStudents, "CompanyStudents", "Statistics")
+                                        @Html.ActionLink(HIQResources.submenuStudentInscriptions, "StudentInscriptions", "Statistics")
+                                       @*@ @Html.ActionLink("Patamares de assiduidade de formação", "CourseAttendancePercentage", "Statistics")*@
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <a class="dropbtn" onclick="myFunctionAll(3)" href="#">@HIQResources.menuConfiguration<span><i class="fa fa-caret-down mleft5" aria-hidden="true"></i></span> </a>
+                                    <div class="dropdown-content" id="myDropdown3">
+                                        @Html.ActionLink(HIQResources.submenuLocations, "Index", "CourseLocation")
+                                        @Html.ActionLink(HIQResources.submenuLevels, "Index", "CourseLevel")
+                                        @Html.ActionLink(HIQResources.submenuInscriptionTypes, "Index", "InscriptionType")
+                                        @Html.ActionLink(HIQResources.submenuCertificationArea, "Index", "CertificationType")
+                                        @Html.ActionLink(HIQResources.submenuFormativeEntities, "Index", "FormativeEntity")
+                                        @Html.ActionLink(HIQResources.submenuCompany, "Index", "Company")
+                                    </div>
+                                </div>
+
+                         @if (HttpContext.Current.User.IsInRole("Admin"))
+                                  {
+                                <div class="col-md-3" id="teste">
+                                    <a class="dropbtn" onclick="myFunctionAll(4)" href="#">@HIQResources.menuAdministration<span><i class="fa fa-cog  mleft5" aria-hidden="true"></i></span> </a>
+                                    <div class="dropdown-content" id="myDropdown4">
+                                        @Html.ActionLink(HIQResources.submenuUsers, "Index", "User")
+                                        @Html.ActionLink(HIQResources.submenuImport, "Import", "User")
+                                    </div>
+                                </div>
+                                  }
+                                <div class="col-md-3">
+                                    @Html.Partial("_LoginPartial")
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="Languages">
+                                      
+                                   @*<a id="PT"  href="/Base/ChangeCurrentCulture/0">@HIQResources.languagePT</a>  <a id="EN" href="/Base/ChangeCurrentCulture/1">@HIQResources.languageEN</a>*@
+
+                                   <a   href="/Base/ChangeCurrentCulture/0"> <img id="PT" src="~/Content/Images/Flag_of_Portugal.png" width="30" height="30"></a>
+                                    
+                                  <a  href="/Base/ChangeCurrentCulture/1"> <img id="EN"  src="~/Content/Images/Flag_of_United_Kingdom.png" width="30" height="30"></a>
+
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="togglemenu pull-right"> <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div>
+                </div>
+
+            </header>
+        </div>
+    </div>
+
+    <!-------------------------end modal-------------------------->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--build:js js/main.min.js-->
+    <script src="~/layout/js/jquery.basictable.js"></script>
+    <script src="~/Scripts/HIQTrainingScripts/Portal.js"></script>
+    <script src="~/layout/js/classie.js"></script>
+    <script src="~/layout/js/myscript.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/layout/css/menulayout.css">
+    <!--endbuild-->
+    <script>
+        $(document).ready(function () {
+            Portal.init();
+
+            var statusCulture = @Session["CurrentCulture"];
+
+            if (statusCulture == 0) {
+                $("#PT").css("border-radius", "15px");
+                $("#PT").css("border", "2px solid #D99708");
+                }
+            else if (statusCulture == 1) {
+                $("#EN").css("border-radius", "15px");
+                $("#EN").css("border", "2px solid #D99708");
+                }
+         
+        });
+
+
+    </script>
+
+    <div class="content body-content">
+        @RenderBody()
+        
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @HIQResources.appName</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

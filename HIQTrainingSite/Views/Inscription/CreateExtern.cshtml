@@ -1,0 +1,158 @@
+﻿@model HIQTrainingSite.ViewModel.InscriptionViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleInscription;
+    ViewBag.Student1 = Model.Student;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleInscription @HIQResources.titleAdd</div>
+    </div>
+
+    @Html.HiddenFor(model => model.CourseId)
+    @Html.HiddenFor(model => model.CourseName)
+
+
+    @using (Html.BeginForm())
+    {
+       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.HiddenFor(model => model.TypeId)
+                    @Html.DropDownListFor(model => model.InscriptionTypes.SelectedInscriptionTypeId, Model.InscriptionTypes.InscriptionTypeItems, htmlAttributes: new { @class = "form-control btn btn-default dropdown-toggle inputForm", @Id = "SelectedTypeId" })
+                    @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div id="studentDiv"> @Html.Partial("_SearchExternalStudent", Model.Student)</div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" id="validation" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" />
+                    @Html.ActionLink(HIQResources.buttonBack, "Index", new { CourseId = Model.CourseId }, new { @class = "btn btn-default btn-sm btn-edit" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group" hidden>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" id="Save" data-toggle="modal" data-target="#MultipleInscriptions" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="form-group" hidden>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="commitSave" class="btn btn-primary" />
+            </div>
+        </div>
+        @Html.Partial("_MultipleInscription")
+    }
+</div>
+    @Html.Partial("_AlertMessage", Model.Alert)
+
+
+    @section styles {
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Scripts/HIQTrainingScripts/Student/SearchExternStudent.js")
+        <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+        <script type="text/javascript">
+
+
+        $("#validation").click(function () {
+
+
+            $("#Name").attr("name", "Student.Name");
+            $("#Email").attr("name", "Student.Email");
+            $("#CompanyId").attr("name", "Student.CompanyId");
+            $("#Observation").attr("name", "Student.Observation");
+
+            var selectedTypeId = $("#SelectedTypeId").val();
+            $("#TypeId").val(selectedTypeId);
+
+            $("#SelectedTypeId").on("change", function () {
+                var selectedTypeId = $("#SelectedTypeId").val();
+                $("#TypeId").val(selectedTypeId);
+            });
+
+
+
+            var name = $("#Name").val();
+            var mail = $("#Email").val();
+            var courseId = $('#CourseId').val();
+
+
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            var viewModel = $('@Model').serialize();
+            var headers = {};
+
+            headers['__RequestVerificationToken'] = token;
+
+            $.ajax({
+                url: "/Inscription/StudentIsInscripted",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    __RequestVerificationToken: token,
+                    name: name,
+                    mail: mail,
+                    courseId: courseId
+                },
+                success: function (result) {
+                    if (result.StudentInscripted == true)
+                    {
+
+                        document.getElementById("Save").click();
+
+                        $("#ConfirmationButton").click(function () {
+                            $("#commitSave").click();
+
+                        });
+
+                    } else
+                    {
+                        $("#commitSave").click();
+                    }
+                }
+
+            });
+            });
+            var token2 = $('input[name="__RequestVerificationToken"]').val();
+            var headers2 = {};
+
+            headers2['__RequestVerificationToken'] = token2;
+        // submit button pressed
+            $("#commitSave").click(function () {
+                $.ajax({
+                    url: "/Inscription/Create",
+                    type: "POST",
+                    data: "__RequestVerificationToken=" + token2 + "&" + $('@Model').serialize(),
+                    sucess: function (result) {
+
+                        alert("sucess");
+                    }
+
+
+                });
+            });
+
+        </script>
+    }

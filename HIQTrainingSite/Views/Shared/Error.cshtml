@@ -1,0 +1,11 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = HIQResources.titleError;
+}
+
+<h1 class="text-danger">@HIQResources.titleError.</h1>
+<h2 class="text-danger">@HIQResources.errorMessageExceptionOccurred.</h2>
+
+<br />
+@Html.ActionLink(HIQResources.buttonHomePage, "Index", "Home", null, new { @class = "btn btn-primary btn-lg" })

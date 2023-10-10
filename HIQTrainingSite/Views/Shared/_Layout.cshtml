@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @HIQResources.appName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("styles", required: false)
+
+    <link href="~/layout/css/navbar.css" rel="stylesheet">
+
+</head>
+
+<body>
+    @if (User.Identity.IsAuthenticated) { 
+    <div class="block-group">
+        <header class="block">
+            <div class="topnav" id="myTopnav">
+
+                <div class="brand">
+                    <a href="#"><span class="colory"> HIQ </span> - TRAINNING </a>
+                </div>
+
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @*@Html.ActionLink(HIQResources.appName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+
+                            <!-- Course Menu -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@HIQResources.menuCourses<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink(HIQResources.submenuCalendar, "Index", "Calendar")</li>
+                                    <li>@Html.ActionLink(HIQResources.submenuCourses, "Index", "Course")</li>
+                                    <li>@Html.ActionLink(HIQResources.submenuStudents, "Index", "Student")</li>
+                                    <li>@Html.ActionLink(HIQResources.submenuTeacher, "Index", "Teacher")</li>
+                                </ul>
+                            </li>
+                            <!-- Certification Menu -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@HIQResources.menuCertification<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink(HIQResources.submenuCertificationResult, "Index", "Certification")</li>
+                                </ul>
+                            </li>
+                            <!-- Statistics Menu -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@HIQResources.menuStatistics<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Taxa de sucesso por formação", "CourseSuccessRate", "Statistics")</li>
+                                    <li>@Html.ActionLink("Assiduidade por formação", "CourseAttendanceRate", "Statistics")</li>
+                                    <li>@Html.ActionLink("Taxa de cancelamento formação", "CourseCanceledRate", "Statistics")</li>
+                                </ul>
+                            </li>
+                            <!-- Configuration Menu -->
+                            @if (HttpContext.Current.User.IsInRole("Admin"))
+                            {
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@HIQResources.menuConfiguration<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink(HIQResources.submenuLocations, "Index", "CourseLocation")</li>
+                                        <li>@Html.ActionLink(HIQResources.submenuLevels, "Index", "CourseLevel")</li>
+                                        <li>@Html.ActionLink(HIQResources.submenuInscriptionTypes, "Index", "InscriptionType")</li>
+                                        <li>@Html.ActionLink(HIQResources.submenuCourseType, "Index", "CourseType")</li>
+                                        <li>@Html.ActionLink(HIQResources.submenuCertificationArea, "Index", "CertificationType")</li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>@Html.ActionLink(HIQResources.submenuFormativeEntities, "Index", "FormativeEntity")</li>
+                                        <li>@Html.ActionLink(HIQResources.submenuCompany, "Index", "Company")</li>
+                                    </ul>
+                                </li>
+                            }
+
+                            <!-- Administration Menu -->
+
+                            @if (HttpContext.Current.User.IsInRole("Admin"))
+                            {
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@HIQResources.menuAdministration<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink(HIQResources.submenuUsers, "Index", "User")</li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+</header>
+</div>
+    }
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @HIQResources.appName</p>
+        </footer>
+    </div>
+ 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+  
+
+</body>
+</html>

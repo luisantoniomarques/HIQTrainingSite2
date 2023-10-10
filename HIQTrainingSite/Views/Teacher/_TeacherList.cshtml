@@ -1,0 +1,69 @@
+﻿@model HIQTrainingSite.ViewModel.TeacherListViewModel
+    
+<div class="block-group">
+    <div id="searchTeacherResults">
+        <table class="table" id="table">
+            <tr>
+                <th>
+                    @HIQResources.labelTeacherName
+                </th>
+                <th>
+                    @HIQResources.labelCompanyName
+                </th>
+                <th>
+                    @HIQResources.labelStudentStatus
+                </th>
+                <th>
+                    @HIQResources.titleOperations
+                </th>
+            </tr>
+
+            @foreach (var item in Model.TeacherList)
+            {
+            <tr>
+
+                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company)
+                    @Html.HiddenFor(modelItem => item.CompanyId)
+                </td>
+                <td>
+                    @switch (item.StatusDescription)
+                    {
+                        case "Ativo":
+                        item.DisplayColor = "#009100";
+                        break;
+
+                        case "Inativo":
+                        item.DisplayColor = "#ba0000";
+                        break;
+                    }
+                    <span class="label" style="background-color:@item.DisplayColor;padding:5px;">
+                        @Html.DisplayFor(modelItem => item.StatusDescription)
+                    </span>
+        
+                </td>
+                <td>
+                    @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit", @style = @ViewBag.BlockOrNone })
+                    @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-hiq-teacher-id="@item.Id" name="deleteArgs" style="@ViewBag.BlockOrNone">
+                        @HIQResources.buttonDelete
+                    </button>
+                    <a href="#" class="btn btn-default btn-sm btnTeacherCourses btn-formation" data-toggle="modal" data-target="#courseListModal" data-hiq-teacher-id="@item.Id" data-hiq-teacher-name="@item.Name" style="@ViewBag.BlockOrNone">
+                        @HIQResources.buttonCourse <span class="badge">@item.TeacherNumberCourses</span>
+                    </a>
+                </td>
+            </tr>
+            }
+
+        </table>
+
+        <div class="pagedList text-center">
+            @Html.PagedListPager(Model.TeacherList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

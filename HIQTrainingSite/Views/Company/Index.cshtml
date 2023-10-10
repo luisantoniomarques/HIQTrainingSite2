@@ -1,0 +1,35 @@
+﻿@model HIQTrainingSite.ViewModel.CompanyListViewModel
+
+@{
+    ViewBag.Title = "Index";
+
+    <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle">Lista de Empresas</div>
+        @Html.ActionLink(HIQResources.buttonAdd, "Create", null, new { @class = "btn btn-lg btn-default md-trigger" })
+    </div>
+        <div class="form-horizontal">
+            @Html.Partial("_CompanyList", Model)
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger col-md-10" })
+
+        @Html.Partial("_AlertMessage", Model.Alert)
+
+        @Html.Partial("_ModalDelete")
+</div>
+
+
+        @section Scripts {
+            <script type="text/javascript">
+                $(function () {
+                    $('#myModal').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget) // Button that triggered the modal
+                        var id = button.attr('data-id') // Extract info from data-* attributes
+                        $('#deleteForm').attr("action", "/Company/Delete/" + id);
+                    })
+                });
+            </script>
+        }

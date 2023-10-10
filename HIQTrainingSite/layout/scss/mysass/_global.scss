@@ -1,0 +1,136 @@
+// GLOBAL STYLES
+body,
+html {
+    margin: 0;
+    background-color: $hiq-main-blue;
+    font-size: 16px;
+}
+
+html .bg-image {
+    background: url(../images/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    line-height: 1.2;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+}
+
+h1 {
+    color: #5b8e8d;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75em;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #82bcba;
+    font-size: 1.75rem;
+    margin-bottom: 0.75em;
+    margin-top: 2em;
+}
+
+h3 {
+    color: #82bcba;
+    font-size: 1.25rem;
+    margin-bottom: 0.75em;
+    margin-top: 2em;
+}
+
+.colory {
+    color: $hiq-yellow;
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+.login-box a {
+    text-decoration: underline;
+    font-size: 0.8rem;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+    li {
+        list-style-type: none;
+    }
+}
+
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.6em;
+    padding: 0px 2px 1px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    border-bottom: 1px solid black;
+}
+
+.sidenav a:first-child {
+    border-bottom: none;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}

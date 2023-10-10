@@ -1,0 +1,52 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationTypeViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCertificationType;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+<div class="mainblock">
+    <div class="block-group">
+        @HIQResources.titleEdit @HIQResources.titleCertificationType
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="md-content">
+            <div class="block-group">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-detail" />
+                            @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-default btn-sm btn-detail" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>         
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

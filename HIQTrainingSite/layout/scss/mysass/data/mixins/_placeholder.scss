@@ -1,0 +1,39 @@
+    // ----------------------------------------------------------------------
+    // Change placeholder text color
+    // ----------------------------------------------------------------------
+    // example: @include placeholder-color(#333);
+    @mixin placeholder-color($color) {
+        &.placeholder {
+            color: $color;
+            font-size: 11px;
+            font-style: italic;
+            opacity:0.4;
+        }
+        &:-moz-placeholder {
+            color: $color;
+            font-size: 11px;
+            font-style: italic;
+             opacity:0.4;
+        }
+        &::-moz-placeholder {
+            color: $color;
+            font-size: 11px;
+            font-style: italic;
+             opacity:0.4;
+        }
+        &::-webkit-input-placeholder {
+            color: $color;
+            font-size: 11px;
+            font-style: italic;
+             opacity:0.4;
+        }
+        &:-ms-input-placeholder {
+            color: $color;
+            font-size: 11px;
+            font-style: italic;
+             opacity:0.4;
+        }
+    }
+
+
+     

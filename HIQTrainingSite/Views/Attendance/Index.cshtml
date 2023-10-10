@@ -1,0 +1,149 @@
+﻿@model HIQTrainingSite.ViewModel.AttendanceListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleAttendanceList;
+    {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle">@HIQResources.titleAttendanceList</div>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Partial("_AlertMessage", Model.Alert);
+        <div class="block-group">
+            <div class="mtop20">
+
+                <div class="block-group search-box">
+
+                    <div class="block b6">
+
+                        @Html.DropDownListFor(m => m.SelectedDateId, Model.CourseDateItems, new { @class = "filter btn btn-gray dropdown-toggle", id = "SelectedDate" })
+                        @Html.HiddenFor(model => model.SelectedDateId)
+                        @Html.HiddenFor(model => model.CourseId)
+                        @Html.HiddenFor(model => model.CourseName)
+
+                    </div>
+                </div>
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <table class="table" id="table">
+
+                <tr>
+                    <th>
+                        @HIQResources.labelStudentName
+                    </th>
+                    <th>
+                        @HIQResources.labelCompanyName
+                    </th>
+                    <th>
+                        @HIQResources.labelAttended
+                    </th>
+                    <th>
+                        @HIQResources.labelObservations
+                    </th>
+                </tr>
+
+
+                <tbody>
+                    @for (int i = 0; i < Model.AttendanceList.Count(); ++i)
+                {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(x => Model.AttendanceList[i].Id)
+                                @Html.HiddenFor(x => Model.AttendanceList[i].InscriptionId)
+                                @Html.HiddenFor(x => Model.AttendanceList[i].CalendarId)
+                                @Html.HiddenFor(x => Model.AttendanceList[i].StudentId)
+                                @Html.HiddenFor(x => Model.AttendanceList[i].StudentName)
+                                @Html.DisplayFor(x => Model.AttendanceList[i].StudentName)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(x => Model.AttendanceList[i].CompanyName)
+                                @Html.DisplayFor(x => Model.AttendanceList[i].CompanyName)
+                            </td>
+                            <td>
+                                @if (Model.IsCourseFinished)
+                                {
+                                    @Html.DisplayFor(x => Model.AttendanceList[i].StatusDescription)
+                                }
+                                else
+                                {
+                                    <div class="select-dropdown">
+                                        @Html.DropDownListFor(x => Model.AttendanceList[i].Status, Model.AttendanceList[i].StateItems, new { @class = "filter" })
+                                    </div>
+                                }
+
+                            </td>
+                            <td>
+                                @if (Model.IsCourseFinished)
+                                {
+                                    @Html.DisplayFor(x => Model.AttendanceList[i].Observation)
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(x => Model.AttendanceList[i].Observation, new { htmlAttributes = new { @class = "filter", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(x => Model.AttendanceList[i].Observation, "", new { @class = "text-danger" })
+                                }
+                                
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+            <div>
+                @if (Model.IsCourseFinished)
+                {
+                    <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation disabled" id="btnSave" />
+                }
+                else
+                {
+                    <input type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" id="btnSave" />
+                }
+                @Html.ActionLink(HIQResources.buttonBack, "Index", "Course", null, new { @class = "btn btn-default btn-sm btn-edit" })
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js");
+    <script>
+        $(function () {
+
+            $("#SelectedDate").on("change", function (e) {
+                e.preventDefault();
+                var id = $("#CourseId").val();
+                this.form.action = "/attendance/index/" + id;
+                this.form.method = "post";
+                this.form.submit();
+            });
+
+            $("#btnSave").on("click", function (e) {
+                e.preventDefault();
+                this.form.action = "/attendance/save/";
+                this.form.method = "post";
+                this.form.submit();
+            });
+
+        });
+    </script>
+}

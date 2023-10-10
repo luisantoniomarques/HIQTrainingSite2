@@ -1,0 +1,36 @@
+﻿@model HIQTrainingSite.ViewModel.CompanyListViewModel
+
+<div id="searchCourseResults">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.HiddenFor(model => model.CompanyList.FirstOrDefault().Id)
+                @HIQResources.labelCourseName
+            </th>
+            <th>
+                @HIQResources.titleOperations
+            </th>
+        </tr>
+
+        @foreach (var item in Model.CompanyList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+               
+                <td>
+                    @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit", })
+                    @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                    <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-id="@item.Id" >
+                        @HIQResources.buttonDelete
+                    </button>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="pagedList text-center">
+        @Html.PagedListPager(Model.CompanyList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

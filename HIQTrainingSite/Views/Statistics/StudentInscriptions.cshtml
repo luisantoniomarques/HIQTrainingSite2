@@ -1,0 +1,270 @@
+﻿@model HIQTrainingSite.ViewModel.CourseEffortViewModel
+
+@{
+    ViewBag.Title = HIQResources.menuStatistics;
+    {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">Inscrições</div>
+    </div>
+
+    <div class="mtop20">
+        <div class="block-group search-box">
+            <div class="block b6">
+                <div class="select-dropdown">
+                    @Html.DropDownListFor(model => model.CourseType, (IEnumerable<SelectListItem>)ViewBag.CourseTypes, HIQResources.titleCourseType)
+                </div>
+            </div>
+            <div class="block b6">
+                <input type="button" id="typeButton" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+            </div>
+            <div class="block b6">
+                <div class="select-dropdown">
+                    @Html.DropDownListFor(model => model.SelectedMonth, (IEnumerable<SelectListItem>)ViewBag.Months, "Mês")
+                </div>
+            </div>
+            <div class="block b6">
+                <div class="select-dropdown">
+                    @Html.DropDownListFor(model => model.SelectedYear, (IEnumerable<SelectListItem>)ViewBag.Years, "Ano")
+                </div>
+            </div>
+            <input type="button" id="dateButton" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+            <input type="reset" id="clearButton" value=@HIQResources.buttonClean class="btn btn-default btn-sm" />
+        </div>
+    </div>
+    <br>
+    <div class="md-content">
+        <div class="block-group">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div id="myGraph" style="width: 860px; height: 500px; margin:0 auto;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#clearButton').on('click', function () {
+                $("#CompanyId option:eq(0)").prop("selected", true);
+                $("#CourseType option:eq(0)").prop("selected", true);
+                $("#SelectedMonth option:eq(0)").prop("selected", true);
+                $("#SelectedYear option:eq(0)").prop("selected", true);
+            });
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            //google.charts.setOnLoadCallback(drawChart);
+
+            function monthYearChart(data) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: 'GetStudentsByMonthAndYear',
+                    data: data,
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', "Mês");
+                        data.addColumn('number', "Número de formandos");
+
+                        for (var i = 0; i < chartsdata.length; i++) {
+                            //data.addRow([1, 1]);
+                            var week = "Semana " + (i +1);
+                            var value = chartsdata[i];
+                            data.addRow([week, value]);
+                        }
+
+                        var options = {
+                            title: "",
+                            isStacked: false,
+                            hAxis: {
+                                title: "Semanas"
+                            },
+                            vAxis: {
+                                title: "Número de formandos"
+                            }
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('myGraph'));
+                        chart.draw(data, options);
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+            function yearChart(data) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: 'GetStudentsByYear',
+                    data: data,
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', "Meses");
+                        data.addColumn('number', "Inscrições internas");
+                        data.addColumn('number', "Inscrições externas");
+
+                        for (var i = 0; i < chartsdata.length; i++) {
+                            //data.addRow([1, 1]);
+                            var month = getMonthName(i + 1);
+                            var internal = chartsdata.InternalStudentsPerMonth[i];
+                            var external = chartsdata.ExternalStudentsPerMonth[i];
+                            data.addRow([month, internal, external]);
+                        }
+
+                        var options = {
+                            title: "Número de inscrições no ano de " + $('#SelectedYear').val(),
+                            isStacked: false,
+                            hAxis: {
+                                title: "Meses"
+                            },
+                            vAxis: {
+                                title: "Número de formandos"
+                            }
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('myGraph'));
+                        chart.draw(data, options);
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+            function courseTypeChart(data) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: 'GetStudentsByCourseType',
+                    data: data,
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', "Tipo de inscrição");
+                        data.addColumn('number', "Número de inscrições");
+                        data.addRow(["Inscrições internas", chartsdata[0]]);
+                        data.addRow(["Inscrições externas", chartsdata[1]]);
+
+
+                        var options = {
+                            title: "Número de inscrições por formação do tipo: " + $('#CourseType').val(),
+                            pieHole: 0.4,
+                            sliceVisibilityThreshold: 0,
+                            is3D: true
+                        };
+
+                        //options.series = {
+                        //    0: {
+                        //        color: 'transparent'
+                        //    }
+                        //}
+
+                        var chart = new google.visualization.PieChart(document.getElementById('myGraph'));
+                        chart.draw(data, options);
+                    },
+                    error: function () {
+                        //swal(strings.Error, strings.ErrorMessage, "error");
+                    }
+                });
+            }
+
+            function getMonthName(number){
+
+                switch (number) {
+                    case 1:
+                        return "Jan";
+                        break;
+                    case 2:
+                        return "Fev";
+                        break;
+                    case 3:
+                        return "Mar";
+                        break;
+                    case 4:
+                        return "Abr";
+                        break;
+                    case 5:
+                        return "Mai";
+                        break;
+                    case 6:
+                        return "Jun";
+                        break;
+                    case 7:
+                        return "Jul";
+                        break;
+                    case 8:
+                        return "Ago";
+                        break;
+                    case 9:
+                        return "Set";
+                        break;
+                    case 10:
+                        return "Out";
+                        break;
+                    case 11:
+                        return "Nov";
+                        break;
+                    case 12:
+                        return "Dez";
+                        break;
+                    default:
+                        return "Not recognized";
+                }
+            }
+
+            $('#dateButton').click(function () {
+
+                var month = $('#SelectedMonth').val();
+                var year = $('#SelectedYear').val();
+                var data;
+
+
+                    if (month !== "" && year !== "") {
+                        data = {
+                            month: month,
+                            year: year
+                        }
+                        monthYearChart(data)
+                    }
+                    else if (year !== "") {
+                        data = {
+                            month: -1,
+                            year: year
+                        }
+                        yearChart(data)
+                    }
+
+
+            });
+
+            $('#typeButton').click(function () {
+
+                var type = $('#CourseType').val();
+
+                var data = {
+                    courseType: type
+                };
+
+                if (type !== "") courseTypeChart(data);
+
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,155 @@
+﻿@model HIQTrainingSite.ViewModel.CourseListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCourseList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+@using (Ajax.BeginForm("SearchCourse", "Course",
+                                    new AjaxOptions
+                                    {
+                                        InsertionMode = InsertionMode.Replace,
+                                        HttpMethod = "GET",
+                                        OnFailure = "searchFailed",
+                                        LoadingElementId = "ajax-loader",
+                                        UpdateTargetId = "searchCourseResults",
+                                    }))
+{
+
+
+
+
+    <div class="mainblock">
+        <div class="block-group">
+            <div class="ttitle">@HIQResources.titleCourseList</div>
+            <a class="btn btn-lg btn-default md-trigger " data-modal="modal-2" href="Create">Adicionar formação</a>
+        </div>
+        <div class="mtop20">
+            <div class="block-group search-box">
+                <div class="block b6">
+                    @Html.EditorFor(model => model.Search.Nome, new { htmlAttributes = new { @class = "filter", @Name = "name", @placeholder = @HIQResources.placeholderSearchCourse } })
+                </div>
+
+                <div class="block b6">
+                    @Html.EditorFor(model => model.Search.Formador, new { htmlAttributes = new { @class = "filter", @Name = "teacher", @placeholder = @HIQResources.placeholderSearchTeacher } })
+                </div>
+                <div class="block b6">
+                    <div class="select-dropdown">
+                        @Html.DropDownListFor(x => Model.Search.Estado, Model.Search.StateItems, new { @class = "filter", @Name = "estado" })
+                    </div>
+                </div>
+                <input type="submit" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+                <input type="reset" value=@HIQResources.buttonClean class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Index", "Course")'" />
+            </div>
+        </div>
+        <div class="block-group">
+            <div class="modal fade" id="ModalCantRemovePresence" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div>
+                                <h4 class="modal-title" id="myModalLabel">@HIQResources.titlevalidationMessage</h4>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                @HIQResources.validationPresence
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @Html.Partial("_CourseList", Model)
+
+        @Html.Partial("_AlertMessage", Model.Alert)
+
+        @Html.Partial("_ModalDelete")
+
+    </div>
+}
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+@Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")
+@Scripts.Render("~/Scripts/paging.js")
+@Scripts.Render("~/Scripts/table2csv.js")
+
+
+    <script src="~/Scripts/lib/moment.min.js"></script>
+
+ <script type="text/javascript">
+
+
+     $(document).ready(function () {
+
+         $('#myModal .close').click(function () {
+             window.location.href = "http://localhost:56250/Course/Index";
+         });
+
+
+                        if ('@TempData["Error"]' === "true") {
+                            $("#ModalCantRemovePresence").modal();
+                        }
+                                        function searchFailed() {
+                        $("#searchCourseResults").html("@Html.Raw(@HIQResources.errorMessageExceptionOccurred)");
+
+                        }
+
+
+                    $('#Search_DataInicio').datepicker();
+                    $("#Search_DataInicio").datepicker("option", "dateFormat", "yy-mm-dd");
+
+                    var id;
+
+                    $('[name="deleteArgs"]').on("click", function (e) {
+                        button = $(e.target); // Button that triggered the modal
+                        id = button.attr('data-id');
+                    });
+
+                 
+
+                    $('#ModalDeleteButton').on("click", function (e) {
+                        var token = $('input[name="__RequestVerificationToken"]').val();
+
+                        $.post("/Course/Delete/",
+                            {
+                                __RequestVerificationToken: token,
+                                id: id
+                            },
+                            function (data) {
+                                $('#myModal .close').click();
+
+                               var baseurl = '@Url.Action("Index")';
+
+                               var url = baseurl + "?message=" + data;
+                               window.location.href = url;
+                               
+                        });
+
+
+                    });
+
+
+
+
+
+                    $('#ModalCantRemovePresence').click(function (e) {
+                        $('#ModalCantRemovePresence .close').click();
+                    });
+
+        });
+
+   
+</script>
+
+}
+

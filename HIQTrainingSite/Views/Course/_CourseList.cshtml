@@ -1,0 +1,114 @@
+﻿@model HIQTrainingSite.ViewModel.CourseListViewModel
+
+<div class="block-group">
+    <div id="searchCourseResults">
+        <table class="table" id="table">
+            <tr>
+                <th>
+                    @Html.HiddenFor(model => model.CourseList.FirstOrDefault().Id)
+                    @HIQResources.labelCourseName
+                </th>
+                <th>
+                    @HIQResources.labelFormativeEntityName
+                </th>
+                <th>
+                    @HIQResources.labelCourseLevel
+                </th>
+                <th>
+                    @HIQResources.labelCourseType
+                </th>
+                <th>
+                    @HIQResources.labelTeacherName
+                </th>
+                <th>
+                    @HIQResources.labelStartDate
+                </th>
+                <th>
+                    @HIQResources.labelCloseDate
+                </th>
+                <th>
+                    @HIQResources.labelCourseStatus
+                </th>
+                <th>
+                    @HIQResources.titleOperations
+                </th>
+            </tr>
+
+            @foreach (var item in Model.CourseList)
+            {
+                <tr >
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FormativeEntity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Teacher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BeginDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CloseDate)
+                    </td>
+                    <td  >
+                     @switch (item.StatusDescription)
+                     {
+                         case "Concluído":
+                             item.DisplayColor = "#2267d6";
+                             break;
+                         case "Cancelada":
+                             item.DisplayColor = "#c40000";
+                             break;
+                         case "Por Iniciar":
+                             item.DisplayColor = "#e6ac00";
+                             break;
+                         case "A decorrer":
+                             item.DisplayColor = "#008900";
+                             break;
+                     }
+                        <span class="label" style="background-color:@item.DisplayColor;padding:5px;">
+                        @Html.DisplayFor(modelItem => item.StatusDescription)</span>
+                    </td>
+                    <td>
+                        @if (item.StatusDescription == "Concluído" || item.StatusDescription == "Cancelada")
+                        {
+                            @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit disabled", @style = @ViewBag.BlockOrNone })
+                            @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                            <button type="button" class="btn btn-default btn-sm btn-remove disabled" data-toggle="modal" data-target="#myModal" data-id="@item.Id" name="deleteArgs" style="@ViewBag.BlockOrNone">
+                                @HIQResources.buttonDelete
+                            </button>
+                            <a href="@Url.Action("Index","Inscription", new { courseId=item.Id })" class="btn btn-default btn-sm btn-formation" style="@ViewBag.BlockOrNone">
+                                @HIQResources.buttonStudents <span class="badge">@item.NumberOfStudents</span>
+                            </a>
+                            @Html.ActionLink(HIQResources.buttonAttendance, "Index", "Attendance", new { Id = item.Id }, new { @class = "btn btn-default btn-sm btn-attendance", @style = @ViewBag.BlockOrNone })
+                        }
+                        else
+                        {
+                            @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit", @style = @ViewBag.BlockOrNone })
+                            @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                            <button type="button" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-id="@item.Id" name="deleteArgs" style="@ViewBag.BlockOrNone">
+                                @HIQResources.buttonDelete
+                            </button>
+                            <a href="@Url.Action("Index","Inscription", new { courseId=item.Id })" class="btn btn-default btn-sm btn-formation" style="@ViewBag.BlockOrNone">
+                                @HIQResources.buttonStudents <span class="badge">@item.NumberOfStudents</span>
+                            </a>
+                            @Html.ActionLink(HIQResources.buttonAttendance, "Index", "Attendance", new { Id = item.Id }, new { @class = "btn btn-default btn-sm btn-attendance", @style = @ViewBag.BlockOrNone })
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <div class="pagedList text-center">
+            @Html.PagedListPager(Model.CourseList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

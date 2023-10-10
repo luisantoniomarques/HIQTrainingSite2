@@ -1,0 +1,334 @@
+﻿@model HIQTrainingSite.ViewModel.CourseViewModel
+
+@{
+    ViewBag.Title = HIQResources.submenuCourses;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/stylesformador.css")" rel="stylesheet" />
+    }
+}
+
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/lib/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<script src="~/Scripts/HIQTrainingScripts/Course/Portal.Edit.js"></script>
+
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle title">@HIQResources.titleEdit</div>
+    </div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="md-content">
+            <div class="block-group">
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectedLevelId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedLevelId, Model.LevelsDrop, htmlAttributes: new { @class = "form-control inputForm" })
+                        @Html.ValidationMessageFor(model => model.SelectedLevelId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectedCourseTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedCourseTypeId, Model.CourseTypesDrop, htmlAttributes: new { @class = "form-control inputForm" })
+                        @Html.HiddenFor(model => model.SelectedCourseTypeId)
+                        @Html.ValidationMessageFor(model => model.SelectedCourseTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SelectedLocationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedLocationId, Model.LocationsDrop, htmlAttributes: new { @class = "form-control inputForm" })
+                        @Html.ValidationMessageFor(model => model.SelectedLocationId, "", new { @class = "text-danger" })
+                    </div>
+                 </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Teacher, new { htmlAttributes = new { @class = "form-control inputForm", @placeholder = "Nome do formador" } })
+                            @Html.HiddenFor(model => model.TeacherId)
+                            @Html.ValidationMessageFor(model => model.Teacher, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EntityFormativeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.EntityFormativeId, Model.FormativeEntitiesDrop, htmlAttributes: new { @class = "form-control inputForm" })
+                            @Html.HiddenFor(model => model.EntityFormativeId)
+                            @Html.ValidationMessageFor(model => model.EntityFormativeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            <text-box class="form-control inputForm">
+                                @Html.DisplayFor(model => model.StartDate)
+                            </text-box>                           
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CloseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        <text-box class="form-control inputForm">
+                            @Html.DisplayFor(model => model.CloseDate)
+                        </text-box>
+                    </div>
+                </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StartHour, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.StartHour, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.HiddenFor(model => model.StartHour)
+                            @Html.ValidationMessageFor(model => model.StartHour, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndHour, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EndHour, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.HiddenFor(model => model.EndHour)
+                            @Html.ValidationMessageFor(model => model.EndHour, "", new { @class = "text-danger" })
+                            @Html.ValidationMessage("InvalidHour", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Effort, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Effort, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.HiddenFor(model => model.Effort)
+                            @Html.ValidationMessageFor(model => model.Effort, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PayRoll, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.PayRoll, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.PayRoll, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Observation, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Observation, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.ValidationMessageFor(model => model.Observation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @**<div class="form-group">
+                @Html.Label("Adicionar Calendário", new { @id = "id", @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    <br />
+                    <br />
+                    @Html.HiddenFor(model => model.CourseCalendar)
+                    <div id="calendar" style="width:50%;height:50%;"></div>
+                    @Html.ValidationMessageFor(model => model.CourseCalendar, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+                    @*<div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            @Html.Label("Alterar Calendário", new { @id = "id", @class = "btn btn-default btn-sm btn-detail" })
+                            <br />
+                            <br />
+                            @Html.HiddenFor(model => model.CourseCalendar)
+                            <div id="calendar" style="width:50%;height:50%;"></div>
+                        </div>
+                    </div>*@
+
+
+                <div class="form-group">
+                    @Html.Label("Alterar Calendário", new { @id = "id", @class = "control-label col-md-2" })
+                    <div class="col-md-8 pull-right">
+                        <div id="dp"></div>
+                    </div>
+                    <div class="col-md-2 pull-right padding-left45">
+                        <div id="nav"></div>
+                    </div>
+                    <div class="block mtop20">
+                        @Html.ValidationMessage("DateOcupied", new { @class = "text-danger" })
+                    </div>
+                    <input type="hidden" name="calendarEvents" id="calendarEvents" />
+                    <input type="hidden" name="eventsRemoved" id="eventsRemoved" />
+                </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsFinished, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.CheckBoxFor(model => model.IsFinished, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsCanceled, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.CheckBoxFor(model => model.IsCanceled, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.isDtp, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.CheckBoxFor(model => model.isDtp, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        </div>
+                    </div>
+                    <div class="form-group" id="cancelobs" style="display: none;">
+                        @Html.LabelFor(model => model.CanceledObservation, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.CanceledObservation, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                            @Html.ValidationMessageFor(model => model.CanceledObservation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <input id="btnSaveChanges" type="submit" value="@HIQResources.buttonSave" class="btn btn-default btn-sm btn-formation" />
+                            @Html.ActionLink(HIQResources.buttonBack, "Index", null, new { @class = "btn btn-default btn-sm btn-edit" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title">Formação: @Model.Name</h4>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <br />
+                Tem a certeza que pretende remover esta data do calendário da formação ?
+                <br />
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CalendarDetails.Observation, htmlAttributes: new { @class = "control-label col-md-3", @style = "padding-left:0;" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CalendarDetails.Observation, new { htmlAttributes = new { @class = "form-control inputForm" } })
+                        @Html.ValidationMessageFor(model => model.CalendarDetails.Observation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="ConfirmButton">@HIQResources.buttonConfirm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">@HIQResources.buttonBack</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section styles {
+            <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+            <link href="~/Content/fullcalendar.css" rel="stylesheet" />
+            <link href="~/Content/themes/base/eventMonthlyCalendar.css" rel="stylesheet" />
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <style>
+        input#IsFinished {
+            width: 17px; /*Desired width*/
+            height: 17px; /*Desired height*/
+        }
+
+        input#IsCanceled {
+            width: 17px; /*Desired width*/
+            height: 17px; /*Desired height*/
+        }
+    </style>
+}
+
+<script type="text/javascript">
+    Portal.EditCourse.backColor = @Html.Raw(Json.Encode(ViewBag.backColor));
+    Portal.EditCourse.currentCulture =  @Html.Raw(Json.Encode(ViewBag.culture));
+    Portal.EditCourse.visibleDateStart = @Html.Raw(Json.Encode(ViewBag.visibleDateStart));
+    Portal.EditCourse.visibleDateClose = @Html.Raw(Json.Encode(ViewBag.visibleDateClose));
+    Portal.EditCourse.eventList = @Html.Raw(Json.Encode(ViewBag.calendar));
+    Portal.EditCourse.init();
+</script>
+
+@section scripts {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @*<script src="~/Scripts/fullcalendar.js"></script>*@
+        @*<script src="~/Scripts/HIQTrainingScripts/Course/Edit.js"></script>*@
+    @*<script>
+        $(document).ready(function () {
+            if ($("#IsCanceled")[0].checked) {
+                var el = document.getElementById('cancelobs');
+
+                if (el.style.display === 'none') {
+                    el.style.display = 'inherit';
+                } else if (el.style.display === 'inherit') {
+                    el.style.display = 'none';
+                }
+            }
+
+            $("#calendar").hide();
+
+
+
+            $("#id").click(function () {
+                $("#calendar").toggle();
+            });
+        });
+
+
+        $("#IsCanceled").click(function () {
+            changeState();
+        });
+
+        function changeState() {
+            var el = document.getElementById('cancelobs');
+
+            if (el.style.display === 'none') {
+                el.style.display = 'inherit';
+            } else if (el.style.display === 'inherit') {
+                el.style.display = 'none';
+            }
+        }
+    </script>*@
+
+}

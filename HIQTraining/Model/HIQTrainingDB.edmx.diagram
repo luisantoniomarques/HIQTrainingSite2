@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aac74efb762a450498977c70edb9dafc" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="DBModel.AspNetRole" Width="1.5" PointX="9.75" PointY="13.5" />
+        <EntityTypeShape EntityType="DBModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="14.5" />
+        <EntityTypeShape EntityType="DBModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="12" />
+        <EntityTypeShape EntityType="DBModel.AspNetUser" Width="1.5" PointX="12" PointY="12.375" />
+        <EntityTypeShape EntityType="DBModel.Attendance" Width="1.5" PointX="9.75" PointY="7" />
+        <EntityTypeShape EntityType="DBModel.Calendar" Width="1.5" PointX="7.5" PointY="4.375" />
+        <EntityTypeShape EntityType="DBModel.Certification" Width="1.5" PointX="7.5" PointY="15" />
+        <EntityTypeShape EntityType="DBModel.CertificationType" Width="1.5" PointX="3" PointY="20.875" />
+        <EntityTypeShape EntityType="DBModel.Company" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DBModel.Course" Width="1.5" PointX="5.25" PointY="6.125" />
+        <EntityTypeShape EntityType="DBModel.CourseLevel" Width="1.5" PointX="3" PointY="17" />
+        <EntityTypeShape EntityType="DBModel.CourseLocation" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="DBModel.FormativeEntity" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="DBModel.Inscription" Width="1.5" PointX="7.5" PointY="9.125" />
+        <EntityTypeShape EntityType="DBModel.InscriptionType" Width="1.5" PointX="5.25" PointY="2.875" />
+        <EntityTypeShape EntityType="DBModel.Log" Width="1.5" PointX="9.75" PointY="2.75" />
+        <EntityTypeShape EntityType="DBModel.Student" Width="1.5" PointX="3" PointY="12.375" />
+        <EntityTypeShape EntityType="DBModel.Teacher" Width="1.5" PointX="3" PointY="8.25" />
+        <AssociationConnector Association="DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DBModel.FK_Attendance_Calendar" />
+        <AssociationConnector Association="DBModel.FK_Attendance_Inscription" />
+        <AssociationConnector Association="DBModel.FK_Calendar_Course" />
+        <AssociationConnector Association="DBModel.FK_Certification_CertificationType" />
+        <AssociationConnector Association="DBModel.FK_Certification_FormativeEntity" />
+        <AssociationConnector Association="DBModel.FK_Certification_Student" />
+        <AssociationConnector Association="DBModel.FK_Student_Company" />
+        <AssociationConnector Association="DBModel.FK_Teacher_Company" />
+        <AssociationConnector Association="DBModel.FK_Course_CourseLevel" />
+        <AssociationConnector Association="DBModel.FK_Course_CourseLocation" />
+        <AssociationConnector Association="DBModel.FK_Course_FormativeEntity" />
+        <AssociationConnector Association="DBModel.FK_Course_Teacher" />
+        <AssociationConnector Association="DBModel.FK_Inscription_Course" />
+        <AssociationConnector Association="DBModel.FK_Inscription_InscriptionType" />
+        <AssociationConnector Association="DBModel.FK_Inscription_Student" />
+        <AssociationConnector Association="DBModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="DBModel.CourseType" Width="1.5" PointX="11.5" PointY="17.5" />
+        <AssociationConnector Association="DBModel.CourseTypeCourse" />
+        <EntityTypeShape EntityType="DBModel.Note" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBModel.sysdiagram" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DBModel.CertificationName" Width="1.5" PointX="12.375" PointY="6.75" />
+        <EntityTypeShape EntityType="DBModel.TrainingArea" Width="1.5" PointX="12.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

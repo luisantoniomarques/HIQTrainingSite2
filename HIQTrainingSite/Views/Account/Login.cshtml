@@ -1,0 +1,63 @@
+﻿@using HIQTrainingSite.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>HIQ - Training</title>
+
+    <!--build:css css/styles.min.css-->
+    <link href="~/layout/css/styles.css" rel="stylesheet">
+    <link href="~/layout/css/table.css" rel="stylesheet">
+    <!--endbuild-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+@if (!User.Identity.IsAuthenticated)
+{
+    <body class="bg-image">
+        <div class=" centrar-texto  ">
+            <h1>HIQ-TRAINING</h1>
+        </div>
+        <section id="loginForm">
+            <div class="login-box ">
+                <div class="block-group ">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="block ">
+                            @*<input id="Email" name="Email" type="text" class="login" placeholder="e-mail">*@
+                            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "e-mail" } })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="block">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>                   
+                        <input type="submit" value="LOGIN" class="btn btn-lg btn-login mbottom20 mtop20" />
+                        <div class="block mtop20">
+                            @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section>
+    </body>
+}
+</html>

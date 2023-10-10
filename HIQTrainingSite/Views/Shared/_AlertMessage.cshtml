@@ -1,0 +1,7 @@
+﻿@model HIQTrainingSite.ViewModel.AlertViewModel
+
+<div class="block-group">
+    <div id="alertMessage" class="alert alert-dismissable fade in @Model.AlertType" style="@Model.DisplayMessage">
+        <strong>@Model.MessagePrefix</strong> @Model.Message
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Globalization
+@using System.Threading;
+@using HIQTrainingSite.ViewModel
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff","Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">       
+            @Html.ActionLink(HIQResources.titleHello + ", " + User.Identity.GetUserName(), "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" , id="manage"})
+        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i></a>
+        
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink(HIQResources.menuRegister, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(HIQResources.menuLogin, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+
+
+@{
+    //CultureInfo CurrentUICulture = Thread.CurrentThread.CurrentUICulture;
+    //Session["CurrentCultureName"] = HIQResources.languagePT ;
+    //http://www.c-sharpcorner.com/uploadfile/4d9083/globalization-and-localization-in-asp-net-mvc-4/
+}
+
+@*<ul style="margin-top:10px;" class="nav navbar-right">
+    <li>
+        <div class="select-dropdown">
+            <button id="btnLang" class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                @if (BaseViewModel.Language == 0) {
+                    @HIQResources.languagePT;
+                } else {
+                    @HIQResources.languageEN;
+                }
+            
+            </button>
+
+            <ul id="dropLang" class="dropdown-menu">
+                <li><a href="/Base/ChangeCurrentCulture/0">@HIQResources.languagePT</a></li>
+                <li><a href="/Base/ChangeCurrentCulture/1">@HIQResources.languageEN</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>*@
+
+
+
+    <script>
+    var str = '@User.Identity.GetUserName()';
+   /* if (str.indexOf(" ") > -1) {
+        var res = str.split(" ")[0] + " " + str.split(" ").splice(-1);
+    }
+    else { var res = str; }
+
+    document.getElementById("manage").innerHTML = res;
+    */
+
+    if (str.indexOf('@@') > -1) {
+         var res =   str.split('@@')[0];
+    }
+    document.getElementById("manage").innerHTML =  '@HIQResources.titleHello'+", " + res;
+
+
+        //$("#logoutForm").hover(function () {
+        //    $("#logoutForm").css("color", "#D99708");
+        //});
+
+
+
+
+    </script>

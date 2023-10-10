@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="appName" xml:space="preserve">
+    <value>HIQ Training</value>
+  </data>
+  <data name="buttonAdd" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="buttonBack" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="buttonConfirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="buttonDelete" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="buttonDetail" xml:space="preserve">
+    <value>Detalhe</value>
+  </data>
+  <data name="buttonEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="buttonSave" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="buttonStudents" xml:space="preserve">
+    <value>Formandos</value>
+  </data>
+  <data name="errorMessageRequired" xml:space="preserve">
+    <value>Campo de preenchimento obrigatório</value>
+  </data>
+  <data name="errorMessageUnableToExecuteOperation" xml:space="preserve">
+    <value>Não foi possível executar a operação</value>
+  </data>
+  <data name="errorMessageUnknownAction" xml:space="preserve">
+    <value>Ação desconhecida.</value>
+  </data>
+  <data name="errorMessageUnknownRecord" xml:space="preserve">
+    <value>Registo desconhecido</value>
+  </data>
+  <data name="errorMessageStringMaxMinLength" xml:space="preserve">
+    <value>Preencha em {0} no máximo {1} carateres e no mínimo {2}.</value>
+  </data>
+  <data name="genericQuestionAreYouSureDelete" xml:space="preserve">
+    <value>Tem a certeza que quer remover o registo?</value>
+  </data>
+  <data name="labelCourseTypeName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="labelGenericCreatedDate" xml:space="preserve">
+    <value>Data Criação</value>
+  </data>
+  <data name="labelGenericUpdatedDate" xml:space="preserve">
+    <value>Data Atualização</value>
+  </data>
+  <data name="labelGenericUserCreated" xml:space="preserve">
+    <value>Utilizador Criação</value>
+  </data>
+  <data name="labelGenericUserUpdated" xml:space="preserve">
+    <value>Utilizador Atualização</value>
+  </data>
+  <data name="menuAdministration" xml:space="preserve">
+    <value>Administração</value>
+  </data>
+  <data name="menuCertification" xml:space="preserve">
+    <value>Certificações</value>
+  </data>
+  <data name="menuConfiguration" xml:space="preserve">
+    <value>Configuração</value>
+  </data>
+  <data name="menuCourses" xml:space="preserve">
+    <value>Formações</value>
+  </data>
+  <data name="menuLogin" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="menuRegister" xml:space="preserve">
+    <value>Registar</value>
+  </data>
+  <data name="menuStatistics" xml:space="preserve">
+    <value>Estatísticas</value>
+  </data>
+  <data name="submenuAttendance" xml:space="preserve">
+    <value>Presenças</value>
+  </data>
+  <data name="submenuCalendar" xml:space="preserve">
+    <value>Calendário</value>
+  </data>
+  <data name="submenuCertificationResult" xml:space="preserve">
+    <value>Resultado de certificação</value>
+  </data>
+  <data name="submenuCourses" xml:space="preserve">
+    <value>Formações</value>
+  </data>
+  <data name="submenuCourseType" xml:space="preserve">
+    <value>Tipos de Formação</value>
+  </data>
+  <data name="submenuInscription" xml:space="preserve">
+    <value>Inscrições</value>
+  </data>
+  <data name="submenuLevels" xml:space="preserve">
+    <value>Níveis de Formação</value>
+  </data>
+  <data name="submenuLocations" xml:space="preserve">
+    <value>Salas de Formação</value>
+  </data>
+  <data name="submenuStudents" xml:space="preserve">
+    <value>Formandos</value>
+  </data>
+  <data name="submenuUsers" xml:space="preserve">
+    <value>Utilizadores</value>
+  </data>
+  <data name="titleAdd" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="titleCourseList" xml:space="preserve">
+    <value>Lista de Formações</value>
+  </data>
+  <data name="titleCourseType" xml:space="preserve">
+    <value>Tipo de Formação</value>
+  </data>
+  <data name="titleCourseTypeList" xml:space="preserve">
+    <value>Lista de Tipos de Formação</value>
+  </data>
+  <data name="titleDelete" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="titleDetail" xml:space="preserve">
+    <value>Detalhe</value>
+  </data>
+  <data name="titleEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="titleHello" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="titleLogOff" xml:space="preserve">
+    <value>Sair Sessão</value>
+  </data>
+  <data name="titleOperations" xml:space="preserve">
+    <value>Operações</value>
+  </data>
+  <data name="titleStudentList" xml:space="preserve">
+    <value>Lista de Formandos</value>
+  </data>
+  <data name="languageEN" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="languagePT" xml:space="preserve">
+    <value>PT</value>
+  </data>
+  <data name="errorMessageExceptionOccurred" xml:space="preserve">
+    <value>Ocorreu um erro. Não foi possivel executar a operação. Informe o administrador da aplicação.</value>
+  </data>
+  <data name="errorMessageUnableToDeleteRecord" xml:space="preserve">
+    <value>Não é possível apagar o registo porque existem dependências.</value>
+  </data>
+  <data name="errorMessageDuplicateRecord" xml:space="preserve">
+    <value>Registo duplicado.</value>
+  </data>
+  <data name="titleInscriptionList" xml:space="preserve">
+    <value>Lista de Inscrições</value>
+  </data>
+  <data name="labelCourseName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="labelStudentName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="titleInscription" xml:space="preserve">
+    <value>Inscrição</value>
+  </data>
+  <data name="SuccessDeleted" xml:space="preserve">
+    <value>Registo removido com sucesso.</value>
+  </data>
+  <data name="SuccessUpdated" xml:space="preserve">
+    <value>Registo atualizado com sucesso.</value>
+  </data>
+  <data name="labelCompanyName" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="labelInscriptionType" xml:space="preserve">
+    <value>Tipo Inscrição</value>
+  </data>
+  <data name="labelEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="errorMessageStudentInscriptionAlreadyMade" xml:space="preserve">
+    <value>Inscrição repetida</value>
+  </data>
+  <data name="errorMessageStudentNotFound" xml:space="preserve">
+    <value>Utilizador desconhecido</value>
+  </data>
+  <data name="buttonAttendance" xml:space="preserve">
+    <value>Presenças</value>
+  </data>
+  <data name="labelCourseDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="titleAttendanceList" xml:space="preserve">
+    <value>Lista de Presenças</value>
+  </data>
+  <data name="labelAttended" xml:space="preserve">
+    <value>Presente</value>
+  </data>
+  <data name="labelLocationName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="titleCourseLocationList" xml:space="preserve">
+    <value>Lista de Salas de Formação</value>
+  </data>
+  <data name="labelCourseLocationName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="titleCourseLocation" xml:space="preserve">
+    <value>Sala de Formação</value>
+  </data>
+  <data name="buttonHomePage" xml:space="preserve">
+    <value>Página Principal</value>
+  </data>
+  <data name="titleError" xml:space="preserve">
+    <value>Ocorreu um Erro</value>
+  </data>
+  <data name="labelStudentStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="titleStudent" xml:space="preserve">
+    <value>Formando</value>
+  </data>
+  <data name="labelCourseStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="labelPhoneNumber" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="titleCourseLevel" xml:space="preserve">
+    <value>Nível de Formação</value>
+  </data>
+  <data name="titleCourseLevelList" xml:space="preserve">
+    <value>Lista de Níveis de Formação</value>
+  </data>
+  <data name="labelCourseLevelName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="titleUsersList" xml:space="preserve">
+    <value>Lista de Utilizadores</value>
+  </data>
+  <data name="labelUserEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="labelUserName" xml:space="preserve">
+    <value>Utilizador</value>
+  </data>
+  <data name="labelUserPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="titleUser" xml:space="preserve">
+    <value>Utilizador</value>
+  </data>
+  <data name="labelApplicationRoles" xml:space="preserve">
+    <value>Privilégios da Aplicação</value>
+  </data>
+  <data name="labelUserRoles" xml:space="preserve">
+    <value>Privilégios do Utilizador</value>
+  </data>
+  <data name="labelUserConfirmPassword" xml:space="preserve">
+    <value>Confirmar Password</value>
+  </data>
+  <data name="buttonChangePassword" xml:space="preserve">
+    <value>Alterar Password</value>
+  </data>
+  <data name="titleSelectUserRoles" xml:space="preserve">
+    <value>Seleccione os privilégios do utilizador:</value>
+  </data>
+  <data name="errorMessagePasswordAndConfirmPasseordDontMatch" xml:space="preserve">
+    <value>{0} e {1} não são iguais.</value>
+  </data>
+  <data name="errorMessageUnknownUser" xml:space="preserve">
+    <value>Utilizador desconhecido.</value>
+  </data>
+  <data name="submenuCertificationLocations" xml:space="preserve">
+    <value>Locais de Certificação</value>
+  </data>
+  <data name="submenuInscriptionTypes" xml:space="preserve">
+    <value>Tipos de Inscrição</value>
+  </data>
+  <data name="labelInscriptionStatus" xml:space="preserve">
+    <value>Estado Inscrição</value>
+  </data>
+  <data name="messageError" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="messageSuccess" xml:space="preserve">
+    <value>Sucesso</value>
+  </data>
+  <data name="messageOperationSuccess" xml:space="preserve">
+    <value>Operação realizada com sucesso.</value>
+  </data>
+  <data name="submenuCertificationArea" xml:space="preserve">
+    <value>Área de Certificação</value>
+  </data>
+  <data name="dropdownAllOptions" xml:space="preserve">
+    <value>-- Todos --</value>
+  </data>
+  <data name="errorMessageStringMaxLength" xml:space="preserve">
+    <value>Preencha em {0} no máximo {1} carateres.</value>
+  </data>
+  <data name="buttonCourse" xml:space="preserve">
+    <value>Formações</value>
+  </data>
+  <data name="labelCanceledObservation" xml:space="preserve">
+    <value>Observacoes cancelamento</value>
+  </data>
+  <data name="buttonCoursesTeached" xml:space="preserve">
+    <value>Formações dadas</value>
+  </data>
+  <data name="errorMessageDuplicateName" xml:space="preserve">
+    <value>O nome inserido já existe.</value>
+  </data>
+  <data name="labelCanceled" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="labelFinished" xml:space="preserve">
+    <value>Terminado</value>
+  </data>
+  <data name="labelskills" xml:space="preserve">
+    <value>Área Técnica</value>
+  </data>
+  <data name="submenuCompany" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
+  <data name="errorMessageInvalidPayRoll" xml:space="preserve">
+    <value>Valor diário inválido</value>
+  </data>
+  <data name="labelPayRoll" xml:space="preserve">
+    <value>Valor Diário</value>
+  </data>
+  <data name="eventAddConfirmed" xml:space="preserve">
+    <value>A nota foi adicionada ao calendário.</value>
+  </data>
+  <data name="eventDeleteConfirmed" xml:space="preserve">
+    <value>A nota foi removida do calendário.</value>
+  </data>
+  <data name="questionEventAdd" xml:space="preserve">
+    <value>Descrição da nota:</value>
+  </data>
+  <data name="questionEventDelete" xml:space="preserve">
+    <value>Deseja eliminar a nota ?</value>
+  </data>
+  <data name="titleEventCalendar" xml:space="preserve">
+    <value>Notas do Utilizador</value>
+  </data>
+  <data name="titleAddEditNote" xml:space="preserve">
+    <value>Nota</value>
+  </data>
+  <data name="titleDeleteNote" xml:space="preserve">
+    <value>Remover Nota</value>
+  </data>
+  <data name="loginAttemptFailed" xml:space="preserve">
+    <value>Tentativa de login falhou</value>
+  </data>
+  <data name="loginFailedPassword" xml:space="preserve">
+    <value>Login falhou: A password inserida não está correcta</value>
+  </data>
+  <data name="loginFailedUser" xml:space="preserve">
+    <value>Login falhou: Este nome de utilizador não existe</value>
+  </data>
+  <data name="loginFailedUserPassword" xml:space="preserve">
+    <value>Nome de utilizador ou password incorrecta</value>
+  </data>
+  <data name="labelNumberHours" xml:space="preserve">
+    <value>Número de horas</value>
+  </data>
+  <data name="titlevalidationMessage" xml:space="preserve">
+    <value>Presenças</value>
+  </data>
+  <data name="validationPresence" xml:space="preserve">
+    <value>Este curso tem que ser calendarizado</value>
+  </data>
+  <data name="submenuCompanyStudents" xml:space="preserve">
+    <value>Inscrições por empresa</value>
+  </data>
+  <data name="submenuCourseEffort" xml:space="preserve">
+    <value>Cargas horárias por formação</value>
+  </data>
+  <data name="submenuCourseStatistics" xml:space="preserve">
+    <value>Estatísticas de formação</value>
+  </data>
+  <data name="submenuStudentInscriptions" xml:space="preserve">
+    <value>Inscrições</value>
+  </data>
+  <data name="buttonClean" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="buttonSearch" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="labelStartDate" xml:space="preserve">
+    <value>Data de início</value>
+  </data>
+  <data name="labelCloseDate" xml:space="preserve">
+    <value>Data de fim</value>
+  </data>
+  <data name="placeholderSearchCourse" xml:space="preserve">
+    <value>Procurar por Formação</value>
+  </data>
+  <data name="placeholderSearchTeacher" xml:space="preserve">
+    <value>Procurar por Formador</value>
+  </data>
+  <data name="errorMessageDateEmpty" xml:space="preserve">
+    <value>O campo da data encontra-se vazio</value>
+  </data>
+  <data name="errorInvalidEmail" xml:space="preserve">
+    <value>Email inválido.</value>
+  </data>
+  <data name="submenuImport" xml:space="preserve">
+    <value>Importação de Excell</value>
+  </data>
+  <data name="titleImport" xml:space="preserve">
+    <value>Importação de Excell</value>
+  </data>
+  <data name="labelExcellPath" xml:space="preserve">
+    <value>Os ficheiros a importar deverão estar na directoria: C:\HIQTraining\ExcellImport</value>
+  </data>
+  <data name="errorFileToLong" xml:space="preserve">
+    <value>Ficheiro muito extenso. Maximo 2MB</value>
+  </data>
+  <data name="errorNotExcel" xml:space="preserve">
+    <value>O ficheiro não é do tipo Excel</value>
+  </data>
+</root>

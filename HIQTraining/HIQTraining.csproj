@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9CE32BC5-9773-47C9-87B8-BE6D73E4DDEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HIQTraining</RootNamespace>
+    <AssemblyName>HIQTraining</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="iTextSharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>..\..\..\..\..\..\Downloads\itextsharp-all-5.5.10\itextsharp-dll-pdfa\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.12\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="OfficeOpenXml.Extends, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OfficeOpenXml.Extends.1.0.3.0\lib\net40\OfficeOpenXml.Extends.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveDirectory\ActiveDirectorySearcherBase.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectorySearcherFactory.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectorySearcherBuilder.cs" />
+    <Compile Include="ActiveDirectory\AdentisActiveDirectorySearcher.cs" />
+    <Compile Include="ActiveDirectory\Agap2ActiveDirectorySearcher.cs" />
+    <Compile Include="ActiveDirectory\BeeEngActiveDirectorySearcher.cs" />
+    <Compile Include="ActiveDirectory\Company.cs" />
+    <Compile Include="ActiveDirectory\CompanyUser.cs" />
+    <Compile Include="ActiveDirectory\HIQActiveDirectorySearcher.cs" />
+    <Compile Include="ActiveDirectory\KcsActiveDirectorySearcher.cs" />
+    <Compile Include="Business\Attendance\AttendanceManager.cs" />
+    <Compile Include="Business\Calendar\CalendarManager.cs" />
+    <Compile Include="Business\Certification\CertificationManager.cs" />
+    <Compile Include="Business\Certification\CertificationNameManager.cs" />
+    <Compile Include="Business\Certification\CertificationTypeManager.cs" />
+    <Compile Include="Business\Company\CompanyManager.cs" />
+    <Compile Include="Business\Configuration\CourseLevelManager.cs" />
+    <Compile Include="Business\Configuration\CourseLocationManager.cs" />
+    <Compile Include="Business\Configuration\CourseTypeManager.cs" />
+    <Compile Include="Business\Configuration\FormativeEntityManager.cs" />
+    <Compile Include="Business\Configuration\InscriptionTypeManager.cs" />
+    <Compile Include="Business\Course\CourseManager.cs" />
+    <Compile Include="Business\Course\TrainingAreaManager.cs" />
+    <Compile Include="Business\Inscription\InscriptionManager.cs" />
+    <Compile Include="Business\Log\LogManager.cs" />
+    <Compile Include="Business\Note\NoteManager.cs" />
+    <Compile Include="Business\Statistics\StatisticsManager.cs" />
+    <Compile Include="Business\Student\StudentManager.cs" />
+    <Compile Include="Business\Teacher\TeacherManager.cs" />
+    <Compile Include="Common\HIQTrainingConstants.cs" />
+    <Compile Include="DAL\Attendance\AttendanceDao.cs" />
+    <Compile Include="DAL\Attendance\IAttendanceDao.cs" />
+    <Compile Include="DAL\Calendar\CalendarDao.cs" />
+    <Compile Include="DAL\Calendar\ICalendarDao.cs" />
+    <Compile Include="DAL\Certification\CertificationDao.cs" />
+    <Compile Include="DAL\Certification\CertificationNameDao.cs" />
+    <Compile Include="DAL\Certification\CertificationTypeDao.cs" />
+    <Compile Include="DAL\Certification\ICertificationDao.cs" />
+    <Compile Include="DAL\Certification\ICertificationNameDao.cs" />
+    <Compile Include="DAL\Certification\ICertificationTypeDao.cs" />
+    <Compile Include="DAL\Company\CompanyDao.cs" />
+    <Compile Include="DAL\Company\ICompanyDao.cs" />
+    <Compile Include="DAL\Configuration\CourseLevelDao.cs" />
+    <Compile Include="DAL\Configuration\CourseLocationDao.cs" />
+    <Compile Include="DAL\Configuration\CourseTypeDao.cs" />
+    <Compile Include="DAL\Configuration\FormativeEntityDao.cs" />
+    <Compile Include="DAL\Configuration\ICourseLevelDao.cs" />
+    <Compile Include="DAL\Configuration\ICourseLocationDao.cs" />
+    <Compile Include="DAL\Configuration\ICourseTypeDao.cs" />
+    <Compile Include="DAL\Configuration\IFormativeEntityDao.cs" />
+    <Compile Include="DAL\Configuration\IInscriptionTypeDao.cs" />
+    <Compile Include="DAL\Configuration\InscriptionTypeDao.cs" />
+    <Compile Include="DAL\Course\CourseDao.cs" />
+    <Compile Include="DAL\Course\ICourseDao.cs" />
+    <Compile Include="DAL\Course\ITrainingAreaDao.cs" />
+    <Compile Include="DAL\Course\TrainingAreaDao.cs" />
+    <Compile Include="DAL\Inscription\IInscriptionDao.cs" />
+    <Compile Include="DAL\Inscription\InscriptionDao.cs" />
+    <Compile Include="DAL\Log\ILogDao.cs" />
+    <Compile Include="DAL\Log\LogDao.cs" />
+    <Compile Include="DAL\Note\NoteDao.cs" />
+    <Compile Include="DAL\Note\INoteDao.cs" />
+    <Compile Include="DAL\Statistics\IStatisticsDao.cs" />
+    <Compile Include="DAL\Statistics\StatisticsDao.cs" />
+    <Compile Include="DAL\Student\IStudentDao.cs" />
+    <Compile Include="DAL\Student\StudentDao.cs" />
+    <Compile Include="DAL\Teacher\ITeacherDao.cs" />
+    <Compile Include="DAL\Teacher\TeacherDao.cs" />
+    <Compile Include="Exceptions\HIQTrainingException.cs" />
+    <Compile Include="LocalResources\HIQResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIQResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\HIQResource.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HIQResource.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Mappers\CompanyMapper.cs" />
+    <Compile Include="ModelDetail\ADUserDetail.cs" />
+    <Compile Include="ModelDetail\AttendanceDetail.cs" />
+    <Compile Include="ModelDetail\CalendarDetail.cs" />
+    <Compile Include="ModelDetail\CalendarFullDetail.cs" />
+    <Compile Include="ModelDetail\CertificationDetail.cs" />
+    <Compile Include="ModelDetail\CertificationFullDetail.cs" />
+    <Compile Include="ModelDetail\CertificationNameDetail.cs" />
+    <Compile Include="ModelDetail\CertificationTypeDetail.cs" />
+    <Compile Include="ModelDetail\CompanyDetail.cs" />
+    <Compile Include="ModelDetail\CompanyDetails.cs" />
+    <Compile Include="ModelDetail\CourseAttendanceRateDetail.cs" />
+    <Compile Include="ModelDetail\CourseCanceledRateDetail.cs" />
+    <Compile Include="ModelDetail\CourseDetail.cs" />
+    <Compile Include="ModelDetail\EffortsCollectionDetail.cs" />
+    <Compile Include="ModelDetail\EffortsDetail.cs" />
+    <Compile Include="ModelDetail\CourseFullAttendanceDetail.cs" />
+    <Compile Include="ModelDetail\CourseLevelDetail.cs" />
+    <Compile Include="ModelDetail\CourseLocationDetail.cs" />
+    <Compile Include="ModelDetail\CourseFullDetail.cs" />
+    <Compile Include="ModelDetail\CourseSuccessRateDetail.cs" />
+    <Compile Include="ModelDetail\CourseTypeDetail.cs" />
+    <Compile Include="ModelDetail\FormativeEntityDetail.cs" />
+    <Compile Include="ModelDetail\HIQResources.cs" />
+    <Compile Include="ModelDetail\InscriptionDetail.cs" />
+    <Compile Include="ModelDetail\InscriptionTypeDetail.cs" />
+    <Compile Include="ModelDetail\ModelBaseDetail.cs" />
+    <Compile Include="ModelDetail\NoteDetail.cs" />
+    <Compile Include="ModelDetail\StatusDetail.cs" />
+    <Compile Include="ModelDetail\StudentsPerYearDetail.cs" />
+    <Compile Include="ModelDetail\StudentSuccessRateDetail.cs" />
+    <Compile Include="ModelDetail\TeacherDetail.cs" />
+    <Compile Include="ModelDetail\TrainingAreaDetail.cs" />
+    <Compile Include="Model\AspNetRole.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AspNetUser.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AspNetUserClaim.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AspNetUserLogin.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Attendance.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Calendar.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Certification.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CertificationName.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CertificationType.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Company.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Course.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CourseLevel.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CourseLocation.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CourseType.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FormativeEntity.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HIQTrainingDB.Context.cs">
+      <DependentUpon>HIQTrainingDB.Context.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\HIQTrainingDB.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\HIQTrainingDB.Designer.cs">
+      <DependentUpon>HIQTrainingDB.edmx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Model\Inscription.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\InscriptionType.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Log.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Note.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Student.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Teacher.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TrainingArea.cs">
+      <DependentUpon>HIQTrainingDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModelDetail\StudentDetail.cs" />
+    <Compile Include="Utils\AttendanceStatus.cs" />
+    <Compile Include="Utils\CalendarStatus.cs" />
+    <Compile Include="Utils\CertificationStatus.cs" />
+    <Compile Include="Utils\CourseStatus.cs" />
+    <Compile Include="Utils\InscriptionStatus.cs" />
+    <Compile Include="Utils\StatusBase.cs" />
+    <Compile Include="Utils\StudentStatus.cs" />
+    <Compile Include="Utils\TeacherStatus.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Model\HIQTrainingDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HIQTrainingDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\HIQTrainingDB.edmx.diagram">
+      <DependentUpon>HIQTrainingDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Model\HIQTrainingDB.Context.tt">
+      <DependentUpon>HIQTrainingDB.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HIQTrainingDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\HIQTrainingDB.edmx.sql" />
+    <Content Include="Model\HIQTrainingDB.tt">
+      <DependentUpon>HIQTrainingDB.edmx</DependentUpon>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>HIQTrainingDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LocalResources\HIQResource.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HIQResource.en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\HIQResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HIQResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

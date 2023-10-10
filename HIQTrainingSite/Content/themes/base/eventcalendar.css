@@ -1,0 +1,120 @@
+.resource_action_menu
+{
+	background-color: #dddddd;
+	cursor: pointer;
+	opacity: 0.6;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+}
+.resource_action_menu:hover
+{
+	opacity: 1;
+	-ms-filter: none;
+}
+
+.resource_action_menu div
+{
+	position: absolute;
+	top: 50%;
+	width: 100%;
+}
+
+.calendar_nav {
+    float: left;
+    width: 160px;
+}
+
+.calendar_dp {
+    width: 160px;
+}
+
+.calendar {
+    margin-bottom:20px;
+}
+
+.resource_action_menu div div 
+{
+	background: url('areas/icons.png') 0px 0px;
+	height: 18px;
+	position: absolute;
+	top: -9px;
+	width: 100%;
+}
+
+
+.event_action_menu
+{
+	background: url('areas/icons.png') 0px 0px;
+	/*opacity: 0.6;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";*/
+	cursor: pointer;
+}
+
+.event_action_menu:hover
+{
+	opacity: 1;
+	-ms-filter: none;
+}
+
+.event_action_delete {
+    background: url('images/ui-delete_event_calendar.png') 0px -20px no-repeat;
+    /*opacity: 0.6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";*/
+    cursor: pointer;
+}
+
+.event_action_delete:hover
+{
+	opacity: 1;
+	-ms-filter: none;
+}
+
+.event_action_bottomdrag 
+{
+	/*opacity: 0.6;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";*/
+	background: url('areas/icons.png') 50% -63px no-repeat;
+}
+
+.event_action_bottomdrag:hover
+{
+	opacity: 1;
+	-ms-filter: none;
+}
+
+.event_action_move
+{
+	/*opacity: 0.6;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";*/
+	xbackground-color: #eeeeee;
+	border-color: #999999;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	border-radius: 0px 0px 5px 5px;
+	xbackground: url('areas/icons.png') 2px -74px repeat-x;
+}
+
+.calendar_default_corner div:nth-of-type(2) {
+    display: none !important;
+}
+
+.calendar_green_corner div:nth-of-type(2) {
+    display: none !important;
+}
+
+.calendar_default_rowheader_inner {
+    font-size: 10pt;
+    text-align: right;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    /*color: #ffffff;*/
+    /*background: #666;
+    background: -moz-linear-gradient( top, #777 0%, #666);
+    background: -webkit-gradient( linear, left top, left bottom, from(#777), to(#666));*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr="#777777", endColorStr="#666666");
+    text-shadow: 0px -1px 1px rgba(000,000,000,0.2), 0px 1px 0px rgba(255,255,255,0.3);
+}

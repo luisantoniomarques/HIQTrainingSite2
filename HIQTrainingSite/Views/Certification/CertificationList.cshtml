@@ -1,0 +1,322 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationListViewModel
+
+@{
+    ViewBag.Title = HIQResources.menuCertification;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+<div class="mainblock">
+    <div class="block-group">
+        <div class="ttitle">@HIQResources.labelStudentCertifications @Model.DisplayName</div>
+        @Html.ActionLink(HIQResources.buttonAddCertification, "Create", "Certification", new { id = Model.StudentId }, new { @class = "btn btn-lg btn-default md-trigger" })
+    </div>
+//TODO: Refazer este código
+    <style type="text/css">
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size: 11px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+
+            table.gridtable th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #dedede;
+            }
+
+            table.gridtable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #ffffff;
+            }
+
+
+    </style>
+
+
+    @using (Html.BeginForm("Export", "Certification", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>@HIQResources.labelCertificationName</th>
+
+                    <th>@HIQResources.labelCompanyName</th>
+
+                    <th>@HIQResources.labelDate</th>
+
+                    <th>@HIQResources.labelCertificationStatus</th>
+
+                    <th>@HIQResources.labelClassification</th>
+
+                    <th>@HIQResources.titleOperations</th>
+                </tr>
+            </tbody>
+            <tbody id="certificationResults">
+                @foreach (var item in Model.CertificationList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.CertificationName)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.Entity)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.DateOnly)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.CertificationStatusDescription)</td>
+
+                            <td>@Html.DisplayFor(modelItem => item.Result)</td>
+                            <td>
+                                <span>
+                                    @*<a href="@item.pdf" download>
+                                            <img border="0" src="~/layout/images/pdf-icon.png" alt="W3Schools" width="30" height="30">
+                                        </a>*@
+                                   
+                                    @Html.ActionLink(HIQResources.buttonEdit, "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-edit" })
+                                    @Html.ActionLink(HIQResources.buttonDetail, "Details", new { id = item.Id }, new { @class = "btn btn-default btn-sm btn-detail" })
+                                    <button type="button" id="deleteBtn" class="btn btn-default btn-sm btn-remove" data-toggle="modal" data-target="#myModal" data-id="@item.Id">
+                                        @HIQResources.buttonDelete
+                                    </button>
+
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+            <div id="Gridd" style="display: none;">
+                <table id="lol" cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;">
+                    <tbody>
+                        <tr>
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelStudentName</th>
+                        </tr>
+                    </tbody>
+
+
+                    <tbody>
+                        @foreach (var item in Model.CertificationList)
+                {
+                            <tr>
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.StudentName)</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div id="Grid" style="display: none;">
+                <table id="lol" cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;">
+                    <tbody>
+                        <tr>
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelStudentName</th>
+
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelCertificationName</th>
+
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelCompanyName</th>
+
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelDate</th>
+
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelCertificationStatus</th>
+
+                            <th style="background-color: #B8DBFD;border: 1px solid #ccc">@HIQResources.labelClassification</th>
+
+                            
+
+                        </tr>
+                    </tbody>
+
+
+                    <tbody>
+                        @foreach (var item in Model.CertificationList)
+                {
+                            <tr>
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.StudentName)</td>
+
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.CertificationName)</td>
+
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.Entity)</td>
+
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.DateOnly)</td>
+
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.CertificationStatusDescription)</td>
+
+                                <td style="width:120px;border: 1px solid #ccc">@Html.DisplayFor(modelItem => item.Result)</td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+
+            <input type="hidden" name="GridHtml" />
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <label id="searchLabel">Procurar:</label>
+                    <input class="form-control" id="searchField" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <button class="btn btn-default btn-sm" id="exportBtn">Export Formacoes</button>
+                    <input type="submit" id="btnSubmit" class="btn btn-default btn-sm" value="Exportar PDF" />
+                    <button type="button" id="hello" class="btn btn-default btn-sm" > </button>
+                        @Html.ActionLink(HIQResources.buttonBack, "Index", "Certification", null, new { @class = "btn btn-default btn-sm btn-edit" })
+                    <input type="hidden" value='@ViewContext.RouteData.Values["id"]' id="routeDataId"  />
+</div>
+            </div>
+
+
+
+
+    }
+
+    @Html.Partial("_AlertMessage", Model.Alert)
+</div>
+
+
+@Html.Partial("_ModalDelete")
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js");
+    @Scripts.Render("~/Scripts/paging.js")
+    @Scripts.Render("~/Scripts/table2csv.js")
+
+<script>
+    
+    $(document).ready(function () {
+      //  $("#certificationResults td:first-child(1)").hide();
+        //    $("#teste td:last-child").hide();
+     //   $("#lol tbody td:nth-child(1), #lol thead th:nth-child(1)").hide();
+        // $('td:nth-child(1)').hide();
+       
+
+
+       $("#lol tbody td:nth-child(1)").hide(); 
+       $("#lol tbody th:nth-child(1)").hide(); 
+
+         $('#lol tbody tr td:nth-child(0)').each(function () {
+           output += $(this).text();
+           
+         });
+
+        
+
+         var id = $('#routeDataId').val();
+        
+
+         $.get("/Certification/Testal", { "id": id }, function (data) {
+            window.nome = data;
+            
+           
+         });
+
+     /*   $('#lol tr').each(function () {
+            var nome = $(this).find("td").eq(0).html();
+            alert(nome)
+        });*/
+
+    });
+
+                    $(function () {
+             
+                        $("#hello").click(function () {
+                          
+                            //   \jhn tgbfvsx     $("input[name='GridHtml']").val($("#Gridd").html());
+                        });
+
+
+                     //  Grid.Columns[0].Visible = false;
+                     
+                            $("#btnSubmit").click(function () {
+                                $("input[name='GridHtml']").val($("#Grid").html());
+                           //   \jhn tgbfvsx     $("input[name='GridHtml']").val($("#Gridd").html());
+                            });
+
+                        var id;
+
+                        $("*[id*=deleteBtn]").each(function () {
+                           $(this).click(function (event) {
+                                //var button = $(event.relatedTarget) // Button that triggered the modal
+                                id = $(this).attr('data-id') // Extract info from data-* attributes
+                                //$('#deleteForm').attr("action", "/Certification/Delete/" + id);
+                            });
+                        });
+
+                        $('#ModalDeleteButton').on("click", function (e) {
+                            var token = $('input[name="__RequestVerificationToken"]').val();
+
+                            $.post("/Certification/Delete/",
+                                {
+                                    __RequestVerificationToken: token,
+                                    id: id
+                                },
+                                function (data) {
+                                    $('#myModal .close').click();
+
+                                })
+                        });
+
+                        $('#exportBtn').click(function () {
+                            $("#certificationResults").tableToCSV();
+                        });
+
+                        $('#searchField').keyup(function () {
+                            searchTable($(this).val());
+                        });
+
+                        function searchTable(inputVal) {
+
+                            var table = $("#certificationResults");
+
+                            table.find('tr').each(function (index, row) {
+                                var allCells = $(row).find('td');
+
+                                if (allCells.length > 0) {
+                                    var found = false;
+
+                                    allCells.each(function (index, td) {
+                                        var regExp = new RegExp(inputVal, 'i');
+
+                                        if (regExp.test($(td).text())) {
+                                            found = true;
+                                            return false;
+                                        }
+                                    });
+
+                                    if (found == true) {
+                                        $(row).show();
+                                        $(row)[0].hidden = false;
+                                    } else {
+                                        $(row).hide();
+                                        $(row)[0].hidden = true;
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+</script>
+}

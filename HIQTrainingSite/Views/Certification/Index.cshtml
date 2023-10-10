@@ -1,0 +1,129 @@
+﻿@model HIQTrainingSite.ViewModel.CertificationListViewModel
+
+@{
+    ViewBag.Title = HIQResources.titleCertificationList;
+    @section css
+        {
+        <link href="@Url.Content("~/layout/css/styles.css")" rel="stylesheet" />
+    }
+}
+
+
+
+
+@using (Ajax.BeginForm("SearchCertification", "Certification",
+  new AjaxOptions
+  {
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "GET",
+    OnFailure = "searchFailed",
+    LoadingElementId = "ajax-loader",
+    UpdateTargetId = "searchResults",
+  }))
+{
+    <div class="mainblock">
+        <div class="block-group">
+            <div class="ttitle">@HIQResources.titleCertificationList</div>
+        </div>
+        <div class="mtop20">
+            <div class="block-group search-box">
+                <div class="block b6">
+                    @Html.EditorFor(model => model.Search.Name, new { htmlAttributes = new { @class = "filter", @Name = "name", @placeholder = "procurar por nome" } })
+                </div>
+                <div class="block b6">
+                    <div class="select-dropdown">
+                        @Html.DropDownListFor(x => Model.Search.Companies.SelectedCompanyId, Model.Search.Companies.CompanyNames, new { @Name = "companyId" })
+                    </div>
+                </div>
+                <div class="block b6">
+                    <div class="select-dropdown">
+                        @Html.DropDownListFor(x => Model.Search.Status, Model.Search.StatusItems, new { @Name = "status" })
+                    </div>
+                </div>
+
+                <input type="submit" value="@HIQResources.buttonSearch" class="btn btn-default btn-sm" />
+                <input type="reset" value=@HIQResources.buttonClean class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Index", "Certification")'" />
+            </div>
+        </div>
+
+        <br />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @*<p class="col-md-10">
+                @Html.ActionLink(HIQResources.buttonAdd, "Create", null, new { @class = "btn btn-primary" })
+            </p>*@
+
+        @Html.Partial("_CertificationIndex", Model)
+        @Html.Partial("_AlertMessage", Model.Alert)
+   
+
+        <hr />
+    </div>
+}
+            @section styles {
+                <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+            }
+
+            @section Scripts {
+                @*@Scripts.Render("~/bundles/jquery")*@
+                @*@Scripts.Render("~/bundles/jqueryval")*@
+                @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js");
+                @Scripts.Render("~/Scripts/table2csv.js")
+
+                @*<script type="text/javascript">
+                    $(function () {
+
+                        var id;
+
+                        $('#myModal').on('show.bs.modal', function (event) {
+                            var button = $(event.relatedTarget) // Button that triggered the modal
+                            id = button.attr('data-id') // Extract info from data-* attributes
+                            //$('#deleteForm').attr("action", "/Certification/Delete/" + id);
+                        })
+
+                        $('#ModalDeleteButton').on("click", function (e) {
+                            var token = $('input[name="__RequestVerificationToken"]').val();
+
+                            $.post("/Certification/Delete/",
+                                {
+                                    __RequestVerificationToken: token,
+                                    id: id
+                                },
+                                function (data) {
+                                    $('#myModal .close').click();
+
+                                    var baseurl = '@Url.Action("Index")';
+
+                                    var url = baseurl + "?message=" + data;
+                                    window.location.href = url;
+                                })
+                        })
+                    });
+
+                </script>*@
+                <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+                <script src="~/Scripts/HIQTrainingScripts/Certification/Index.js"></script>
+
+                <script>
+
+        function searchFailed() {
+            $("#searchResults").html("@Html.Raw(@HIQResources.errorMessageExceptionOccurred)");
+        }
+
+        function goCreate() {
+            $.ajax({
+                url: "Certification/Create",
+                data: {
+                    id: $("#StudentId").val()
+                },
+                type: 'get',
+                datatype: 'json',
+                success: function (data) {
+                    window.location.href = 'Certification/Create?id=' + $("#StudentId").val();
+                }
+            });
+        }
+                </script>
+
+            }

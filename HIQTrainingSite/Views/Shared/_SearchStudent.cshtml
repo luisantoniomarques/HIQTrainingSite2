@@ -1,0 +1,66 @@
+﻿@model HIQTrainingSite.ViewModel.StudentViewModel
+
+<style type="text/css">
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+
+
+
+<div class="form-group">
+    @Html.Label("Tipo de Empresa", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-8">
+        <label class="checkbox-inline"><input type="checkbox" id="checkboxInternal" value=""  @ViewBag.statusChekedboxInternal>Formando Interno</label>
+        <label class="checkbox-inline"><input type="checkbox" id="checkboxExternal" value=""  @ViewBag.statusChekedboxExternal>Formando Externo</label>     
+    </div>
+</div>
+<div id="formularioStudent" style="display:none;">
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "required control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.Companies.SelectedCompanyId, Model.Companies.CompanyNames, htmlAttributes: new { @class = "form-control inputForm", @id = "SelectedCompanyId" })
+            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.HiddenFor(model => model.Id)
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "required control-label col-md-2" })
+        @*@Html.Label(" ", htmlAttributes: new { @class = "required" })*@
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control inputForm" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "required control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control inputForm" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control inputForm" } })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Observation, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.TextAreaFor(model => model.Observation, new { htmlAttributes = new { @class = "form-control inputForm" } })
+            @Html.ValidationMessageFor(model => model.Observation, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+   
+
+</div>
